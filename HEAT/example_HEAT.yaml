@@ -1,0 +1,102 @@
+heat_template_version: 2014-10-16
+
+description: Template to deploy one instance with a private network devoloped on the spot
+
+parameters: #this section is if you want to give the parameters when you are creating the stack
+ image: # choose the image you want to be used
+  type: string
+  label: Image name or ID
+  description: Image to be used for compute instance
+  default: ubuntu14.04 #this is the one used if you don't define it
+ flavor: #the flavor used
+  type: string
+  label: flavor
+  description: flavor to be used
+  default: m1.small
+ public_network: #the public network to be used
+  type: string
+  label: Public network name or ID
+  description: Public network
+  default: ext-net
+
+resources: #in this section, the resources are defined
+ mngt_net: #creating the MNGT network
+  type: OS::Neutron::Net
+  properties:
+   name: MNGT
+
+ monitoring_net:
+  type: OS::Neutron::Net
+  properties:
+   name: MONITORING
+
+ datapath_net:
+  type: OS::Neutron::Net
+  properties:
+   name: DATAPATH
+
+storage_net:
+  type: OS::Neutron::Net
+  properties:
+   name: STORAGE
+
+ mngt_subnet: #creating the subnets
+  type: OS::Neutron::Subnet
+  properties:
+   network_id: { get_resource: mngt_net }
+   cidr: 192.168.40.0/24
+   dns_nameservers:
+    - 8.8.8.8
+
+ monitoring_subnet:
+  type: OS::Neutron::Subnet
+  properties:
+   network_id: { get_resource: monitoring_net }
+   cidr: 192.168.50.0/24
+   dns_nameservers:
+    - 8.8.8.8
+
+ datapath_subnet:
+  type: OS::Neutron::Subnet
+  properties:
+   network_id: { get_resource: datapath_net}
+   cidr: 192.168.60.0/24
+   dns_nameservers:
+    - 8.8.8.8
+
+ storage_subnet:
+  type: OS::Neutron::Subnet
+  properties:
+   network_id: { get_resource: storage_net }
+   cidr: 192.168.70.0/24
+   dns_nameservers:
+    - 8.8.8.8
+
+router-interface: #creating the router interface, on an existing router
+  type: OS::Neutron::RouterInterface
+  properties:
+   router_id: f6e4d3cf-d4c8-4a7e-9a96-9180ddb5f57f  #this is the id of the router used *it can be defined in the parameters if we want
+   subnet: { get_resource: mngt_subnet } #the subnet the interface is created for
+
+ instance1:
+  type: OS::Nova::Server
+  properties:
+   image: { get_param: image } #getting the image defined by user through parameters or the default if not 
+   name: vnfc1
+   flavor: { get_param: flavor } #getting the flavor
+   networks: #defining the networks attached to 
+    - network: { get_resource: mngt_net }
+    - network: { get_resource: monitoring_net }
+    - network: { get_resource: datapath_net }
+
+ instance2:
+  type: OS::Nova::Server
+  properties:
+   image: { get_param: image }
+   name: vnfc2
+   flavor: { get_param: flavor }
+   networks:
+    - network: { get_resource: storage_net }
+    - network: { get_resource: mngt_net }
+    - network: { get_resource: monitoring_net }
+    - network: { get_resource: datapath_net }
