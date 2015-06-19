@@ -1,0 +1,405 @@
+{
+  "vnfd": {
+    "-xmlns": "urn:ietf:params:xml:ns:yang:nfvo",
+    "-xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+    "-xsi:schemaLocation": "urn:ietf:params:xml:ns:yang:nfvo vnfd-1.xsd ",
+    "name": "Firewall",
+    "vnfd-id": "cd8c1b44-9230-49c8-9cb0-01e02b9df7ee",
+    "provider": "2432",
+    "vendor": "NCSRD",
+    "description": "Traffic Classification",
+    "type": "TC",
+	"__comment": "maybe include some keyword selection i.e storage and be included here in order to be used efficiently deployed",
+    "creationdate": "2015-06-11T13:10:00Z",
+	"modificationdate": "2015-06-11T13:10:00Z",
+	"descriptor_version": "0",
+    "version": "2.0",
+    "trade": "TRUE",
+	
+	"autoscalepolicy": {
+		"__comment": "left for later",
+	},
+	
+	"cycle": {
+	  "__comment": "what is this ? not defined in T-NOVA",
+      "period": "M",
+      "value": "1"
+    },
+    
+	"lifecycle_event": {
+		"__comment": "Your VNF specific scripts for init, terminate, scalling in/out etc",
+		“__comment”: “To be refined by the discussion on T5.2”,
+		"setup": "",
+		"start": "message to the controller / specifici script to run",
+		"stop": {
+			"gracefull": "message to the controller / specifici script to run",
+			"immediate": "message to the controller / specifici script to run",
+			
+		},
+	},
+	
+	"depedency": {
+		"__comment": "none considered"
+	},
+	
+    "connection-points": {
+      "__comment": " how this VNF is going to interconnect with",
+	  "__comment": " leaving out mirroring for the time being",
+      
+	  "XP2": {
+        "name": "mgmt-interface",
+        "description": "Management interface",
+		"virtual_link_reference": "",
+		"type": "floating.IP",
+      },
+	  
+	  "XP11": {
+		  "name": "datapath-in",
+		  "description": "Interface that receives the packets",
+		  "virtual_link_reference": "",
+		  "__comment": "assuming VNF is L2",
+		  "type": "vNIC.mac.addr",
+		  "__comment": "it might be also the case where the virtul.port number is used as type",
+		  "__comment": "assuming VNF is L3, we need to give reachable IP to the VNF",
+		  "__comment": "WP4: technical solution for extention of L2 network",
+		  "type": "floating.IP"
+	  },
+	  
+      "XP12": {
+        "name": "datapath-out",
+        "description": "Packet out interface",
+		"type": "vNIC.mac.addr"
+      },
+	  
+	  "XP4": {
+        "name": "storage-interface",
+        "description": "Storage interface",
+		"virtual_link_reference": "",
+		"__comment": "this declaration might not be required",
+		"type": "vNIC.MAC"
+      },
+	  
+	  "XP3": {
+        "name": "monitoring-interface",
+        "description": "Monitoring interface",
+		"virtual_link_reference": "",
+		"type": "VPN.IP"
+	  }
+   },
+	
+	"virtual_link": {
+		"mngt_virt_link": {
+			"id": "VL1",
+			"__comment": "internal virtual link that maps to management network",
+			"connectivity_type": "E-LAN",
+			"connection_point_references": "1.1,2.1,management",
+			"root_requirements": "",
+			"leaf_requirements": "",
+			"qos": "",
+			"test_access": ""
+		},
+		"datapath_virt_link": {
+			"id": "VL2",
+			"__comment": "internal virtual link that maps to datapath network",
+			"connectivity_type": "E-LAN",
+			"connection_point_references": "1.2,2.2,XP11,XP12",
+			"root_requirements": "",
+			"leaf_requirements": "",
+			"qos": "",
+			"test_access": ""
+		},
+		"monitoring_virt_link": {
+			"id": "VL3",
+			"__comment": "internal virtual link that maps to datapath network",
+			"connectivity_type": "E-LAN",
+			"connection_point_references": "1.3,2.3,monitoring-point",
+			"root_requirements": "",
+			"leaf_requirements": "",
+			"qos": "",
+			"test_access": ""
+		},
+		"storage_virt_link": {
+			"id": "VL4",
+			"__comment": "internal virtual link that maps to datapath network",
+			"connectivity_type": "E-LAN",
+			"connection_point_references": "2.4,storage-point",
+			"root_requirements": "",
+			"leaf_requirements": "",
+			"qos": "",
+			"test_access": "",
+		},
+	},
+	
+	"billing_model": {
+		
+		"mode": "PAYG",
+		"period": "P1W",
+		"price": {
+			"unit": "EUR",
+			"min_per_period": "5",
+			"max_per_period": "10",
+			"setup": "0"
+		}
+	},
+	
+	"manifest_file": "/path/to/file",
+	"manifest_file_secutiry": "MD5HASH",
+	
+	"monitoring-params": [
+      {
+        "num-rules": {
+          "para-id": "num-rules",
+          "description": "Total number of flow the VNF can handle"
+        }
+      },
+	  
+	  
+      {
+        "memory-consumption": {
+          "para-id": "memory-consumption",
+          "description": "Maximum memory consumed by the VNF"
+        }
+      },
+      {
+        "CPU-utilisation": {
+          "para-id": "CPU-utilisation",
+          "description": "Maximum CPU utilised by the VNF"
+        }
+      },
+      {
+        "availability": {
+          "para-id": "availability",
+          "description": "Average availability of the VNF"
+        }
+      }
+    ],
+    "flavours": {
+      "Gold": {
+        "flavour-id": "Gold",
+        "description": "Gold Service flavour",
+        "assurance-params": [
+          {
+            "param-id": "CPU-utilisation",
+            "value": "60",
+            "unit": "percentage"
+          },
+          {
+            "param-id": "availability",
+            "value": "95",
+            "unit": "percentage"
+          }
+        ],
+        "vdus": {
+          "vFW": {
+            "vdu-id": "vFW",
+            "num-instances": "10",
+            "vm-spec": { "uri": "http://www.example.com/support/vFW1.qcow" },
+            "cpu": { "num-vpu": "2" },
+            "memory": { "total-memory-gb": "8" },
+            "network-interfaces": {
+              "management-interface": {
+                "name": "management-interface",
+                "description": "Interface Used for management interface",
+                "connection-point-ref": "connection-points/management-interface",
+                "properties": {
+                  "driver": {
+                    "id": "driver",
+                    "value": "e1000"
+                  }
+                }
+              },
+              "pkt-in": {
+                "name": "pkt-in",
+                "description": "Packet in interface",
+                "connection-point-ref": "connection-points/pkt-in",
+                "properties": {
+                  "driver": {
+                    "id": "driver",
+                    "value": "DPDK-PMD"
+                  }
+                }
+              },
+              "pkt-out": {
+                "name": "pkt-out",
+                "description": "Packet out interface",
+                "connection-point-ref": "connection-points/pkt-out",
+                "properties": {
+                  "driver": {
+                    "id": "driver",
+                    "value": "DPDK-PMD"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "price": {
+          "currency": "EUR",
+          "min": "5",
+          "max": "12",
+          "setup": "0"
+        },
+        "available": "TRUE"
+      },
+      "Silver": {
+        "flavour-id": "Silver",
+        "description": "Silver Service flavour",
+        "assurance-params": [
+          {
+            "param-id": "CPU-utilisation",
+            "value": "70",
+            "unit": "percentage"
+          },
+          {
+            "param-id": "availability",
+            "value": "90",
+            "unit": "percentage"
+          }
+        ],
+        "vdus": {
+          "vFW": {
+            "vdu-id": "vFW",
+            "num-instances": "5",
+            "vm-spec": { "uri": "http://www.example.com/support/vFW1.qcow" },
+            "cpu": { "num-vpu": "2" },
+            "memory": { "total-memory-gb": "4" },
+            "network-interfaces": {
+              "management-interface": {
+                "name": "management-interface",
+                "description": "Interface Used for management interface",
+                "connection-point-ref": "connection-points/management-interface",
+                "properties": {
+                  "driver": {
+                    "id": "driver",
+                    "value": "e1000"
+                  }
+                }
+              },
+              "pkt-in": {
+                "name": "pkt-in",
+                "description": "Packet in interface",
+                "connection-point-ref": "connection-points/pkt-in",
+                "properties": {
+                  "driver": {
+                    "id": "driver",
+                    "value": "DPDK-PMD"
+                  }
+                }
+              },
+              "pkt-out": {
+                "name": "pkt-out",
+                "description": "Packet out interface",
+                "connection-point-ref": "connection-points/pkt-out",
+                "properties": {
+                  "driver": {
+                    "id": "driver",
+                    "value": "DPDK-PMD"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "available": "TRUE",
+        "price": {
+          "currency": "EUR",
+          "min": "1",
+          "max": "10",
+          "setup": "0"
+        }
+      }
+    },
+	
+	"vdu": {
+		"id": "2ded435f-9976-436f-a678-86925d47145b",
+		"vm_image": {"uri": "http://nfstore.t-nova.eu/support/vTC.qcow"},
+		"computation_requirements": "high",
+		"virt_mem_res_element": {
+			"unit": "GB",
+			"value": "4"
+		},
+		
+		"lifecycle_event": {
+			
+		},
+		"constraint": ""
+		
+		"vnfc:" {
+			"id": "2ded435f-9976",
+			
+			"connection_point": {
+				
+				"vnf_management" {
+					"id": "2.1",
+					"virtual_link_reference": "",
+					"type": "vNIC.ip.addr"
+				},
+				
+				"datapath": {
+					"id": "2.2",
+					"virtual_link_reference": "VL1",
+					"type": "vNIC.ip.addr"
+				},
+				
+				"monitoring": {
+					"id": "2.3",
+					"virtual_link_reference": "VL3",
+					"type": "vNIC.ip.addr"
+				},
+				
+				"storage": {
+					"id": "2.4",
+					"virtual_link_reference": "VL4",
+					"type": "vNIC.ip.addr"
+				},
+				
+			},
+	  	 
+		},
+	},
+	
+	"vdu": {
+		"id": "2ded435f-9976-436f-a678-87925d47145a",
+		"vm_image": {"uri": "http://nfstore.t-nova.eu/support/vDPI.qcow"},
+		"computation_requirements": "high",
+		"virt_mem_res_element": {
+			"unit": "GB",
+			"value": "4"
+		},
+		
+		"lifecycle_event": {
+			
+		},
+		"constraint": ""
+		
+		"vnfc:" {
+			"id": "2ded5566-9976",
+			
+			"connection_point": {
+				
+				"vnf_management" {
+					"id": "1.1",
+					"virtual_link_reference": "",
+					"type": "fixed.ip.addr"
+				},
+				
+				"monitoring" {
+					"id": "1.1",
+					"virtual_link_reference": "",
+					"type": "vNIC.ip.addr"
+				},
+				
+				"datapath": {
+					"id": "1.2",
+					"virtual_link_reference": "VL1",
+					"type": "vNIC.ip.addr"
+				},
+				
+			},
+	  	 
+		},
+	}
+	
+		
+   }
+}
