@@ -18,9 +18,13 @@
         /* to be decided later */
     ],
     "vnf_dependencies": [
-        "23", /* NFStore-generated IDs */
-        "1"
-    ],
+        "__comment": "Describe dependencies between VNF. Defined in terms of source and target VNF i.e. target VNF "depends on" source
+		VNF. In other words a source VNF shall exist and connect to the service before target VNF can be initiated/deployed and
+		connected",
+		"23" : {
+			"depends on" : "1",
+		
+    },
     "monitoring_parameters": [{
         "name": "availability",
         "description": "Percentage of time the NS has been available over the last 365 days",
@@ -51,13 +55,28 @@
             }
         }
     ],
-    "service_deployment_flavours": [{}],
+    "service_deployment_flavours": [{
+    	"__comment": "Represents the service KPI parameters and its requirement for
+		each deployment flavour of the NS being described,
+		see clause 6.2.1.3. For example, there could be a flavour
+		describing the requirements to support a vEPC with 300k calls
+		per second. There could be another flavour describing the
+		requirements to support a vEPC with 500k calls persecond."
+    }],
     "auto_scale_policies": [
         /* to be decided later */
         /* the triggering parameters for the lifecycle_events scaling script */
     ],
     "connection_points": [
-        /* ingress, egress -- examples? */
-        /* depends on the kind of service -- physical ports, ... */
+		"X1": {
+			"name": "ingress",
+			"type": "phy.sw.port",
+			"__comment": "assuming that this will contain information for the attachment point",
+		},
+		"X2": {
+			"name": "egress",
+			"type": "phy.sw.port",
+		},
+		
     ]
 }
