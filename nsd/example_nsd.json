@@ -35,6 +35,7 @@
         "unit": "MB"
     }],
     "service_deployment_flavours": [{
+        "__comment": "TO BE REVISED"
         "__comment": "Represents the service KPI parameters and its requirement for
 	        each deployment flavour of the NS being described,
 	 	    see clause 6.2.1.3. For example, there could be a flavour
