@@ -1,10 +1,29 @@
 {
 	"vnfd": {
-		"release": "T-NOVA v.0.1"
+		"release": "T-NOVA v.0.1",
 		"id": "id number",
 		"vendor": "vendor generating this VNFD",
+		"provider_id": "function provider id",
+		"vendor": "vendor name",
+		"description": "description of the function of the VNF",
 		"description_version": "version of this VNFD",
 		"version": "version of VNF software",
+		"type": "TC / should an ontology be defined or this is free text input?",
+        "__comment": "maybe include some keyword selection i.e storage and be included here",
+		"__comment": "in order to be used efficiently deployed",
+		"date_created": "date created e.g 2015-06-11T13:10:00Z",
+		"date_modified": "date modified",
+		"trade": "TRUE",
+		"billing_model":{
+			"model": "billing model informantion e.g. PAYG",
+			"period": "billing period e.g. P1W",
+			"price" :{ 
+	            "unit":"billing unit e.g. EUR",
+	            "min_per_period":"5",
+	            "max_per_period":"10",
+	            "setup":"0"		
+			}
+		},
 		"vdu": [
 			{
 				"id": "vdu uuid1",
@@ -25,8 +44,8 @@
 						"template_file_format": "json",
 						"Template_file": {
 							"controller": "get_attr: [controller, floating_ip]",
-							"__comment": "we should identify the vdu that is the controlling/managing vdu for all the VNFCs, this implies that a tag should be placed in that vdu"
-							"__comment": "assumption that that vdu is the first to start and delegates all the other config commands to the rest"
+							"__comment": "we should identify the vdu that is the controlling/managing vdu for all the VNFCs, this implies that a tag should be placed in that vdu",
+							"__comment": "assumption that that vdu is the first to start and delegates all the other config commands to the rest",
 							"vdu1":"get_attr: [instance1, mngt_network_ip]",
 							"vdu2":"get_attr: [instance2, mngt_network_ip]"
 						}
@@ -130,13 +149,24 @@
 					"support_for_interrupt_remapping": "",
 					"support_for_data_processing_acceleration_libraries": ""
 				},
-				"platform_pcie_parameters": {
-					"generational_capabilities": "",
-					"bandwidth": "",
-					"device_pass_through": "",
-					"SR-IOV": "",
-					"device_assignement_affinity": ""
-				},
+				"platform_pcie_parameters": [
+					{ 
+						"type:" "type of pcie device e.g. NIC",
+						"general_capabilities": "",
+						"bandwidth": "",
+						"device_pass_through": "True/False",
+						"SR-IOV": "",
+						"device_assignement_affinity": ""
+					}
+					{ 
+						"type:" "type of pcie device e.g. NIC"
+						"general_capabilities": "",
+						"bandwidth": "",
+						"device_pass_through": "True/False",
+						"SR-IOV": "Info rgarding SR-IOV deployment",
+						"device_assignement_affinity": ""
+					}
+				],
 				"pcie_advanced_error_reporting": "",
 				"platform_acceleration_device": "",
 				"network_interface_card_capabilities": {
@@ -163,7 +193,7 @@
 				"uncorrected_error_notification": "number of error raising exceptions",
 				"storage_requirements": {
 					"size": "size required eg 30GB",
-					"KQI1": "",
+					"KQI1": "IOPS limit if applicable",
 					"KQI2": ""
 				},
 				"rdma_support_bandwidth": "rdma bandwidth"
@@ -208,13 +238,56 @@
 			}
 		],
 		"lifecycle_event": {
-			"__comment": "when VNFM initiates a start for this VNF, the VNFM should communicate with the VIM in order to spin on the VMs (NVFCs),\
-			 then sends the start command to the controll VM (VNFC) indicated by a specific tag (TBD) \
-			 The controll VNFC reiterates the programmed actions to the other VNFCs. Is this a valid assumption or should the VNFM communicate with each and every VNFC in order \
-			 to configure them?"
-			"start": "path/to/script",
-			"stop": "path/to/script",
-			"restart": "path/to/script"
+			"__comment": "when VNFM initiates a start for this VNF, the VNFM should communicate with",
+			"__comment": "the VIM in order to spin on the VMs (NVFCs),",
+			"__comment": "then sends the start command to the controll VM (VNFC) indicated by a specific tag (TBD)",
+			"__comment": "The controll VNFC reiterates the programmed actions to the other VNFCs",
+			"__comment": "Is this a valid assumption or should the VNFM communicate with each and every VNFC in order",
+			"__comment": "to configure them?",
+			"driver": "driver to be used for accessing the management VNFC, e.g. SSH",
+			"Authentication": "path/to/private_key",
+			"Authentication_Type": "Authentication type e.g. PrivateKey/ Digest ",
+			"__comment": "information about IP resides in the VNFR not VNFD",
+			"VNF_Container":"path/to/container e.g. /home/tnova/container/",
+			"__comment": "we should identify the vdu that is the controlling/managing vdu for all the VNFCs",
+			"__comment": "this implies that a tag should be placed in that vdu",
+			"__comment": "assumption that that vdu is the first to start",
+			"__comment": "and delegates all the other config commands to the rest",
+			"events": [
+				{
+				 		"lifecycle_event": "start",
+						"controller": "get_attr: [controller, floating_ip]",
+	 					"vdu1":"get_attr: [instance1, mngt_network_ip]",
+	 					"vdu2":"get_attr: [instance2, mngt_network_ip]"
+				 
+			 	},
+			 	{
+					"lifecycle_event": "stop", 
+					"controller": "get_attr: [controller, floating_ip]",
+	 				"vdu1":"get_attr: [instance1, mngt_network_ip]",
+	 				"vdu2":"get_attr: [instance2, mngt_network_ip]"
+				 
+			 }, 
+				{
+					"lifecycle_event": "restart", 
+					"controller": "get_attr: [controller, floating_ip]",
+	 				"vdu1":"get_attr: [instance1, mngt_network_ip]",
+	 				"vdu2":"get_attr: [instance2, mngt_network_ip]"
+			 },
+			 	{
+ 					"lifecycle_event": "scale-in", 
+ 					"controller": "get_attr: [controller, floating_ip]",
+ 	 				"vdu1":"get_attr: [instance1, mngt_network_ip]",
+ 	 				"vdu2":"get_attr: [instance2, mngt_network_ip]"
+			 },
+				{
+					"lifecycle_event": "scale-out",
+ 					"lifecycle_event": "restart", 
+ 					"controller": "get_attr: [controller, floating_ip]",
+ 	 				"vdu1":"get_attr: [instance1, mngt_network_ip]",
+ 	 				"vdu2":"get_attr: [instance2, mngt_network_ip]"
+			 }
+		 	]
 		},
 		"dependency": [
 			{
@@ -228,16 +301,20 @@
 		],
 		"monitoring_parameters": [
 			{
-				"monitoring_parameter": "memory-consumption"
+				"monitoring_parameter": "memory-consumption",
+				"description": "Maximum memory consumed by the VNF"
 			},
 			{
-				"monitoring_parameter": "CPU-utilization"
+				"monitoring_parameter": "max CPU-utilization",
+				"description": ""
 			},
 			{
-				"monitoring_parameter": "bandwidth-consumption"
+				"monitoring_parameter": "bandwidth-consumption",
+				"description": ""
 			},
 			{
-				"monitoring_parameter": "VNFC downtime"
+				"monitoring_parameter": "VNFC downtime",
+				"description": ""
 			}
 		],
 		"deployment_flavour": [

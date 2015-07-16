@@ -1,0 +1,138 @@
+{
+	"nsr": {
+		"id": "network service instance id",
+		"auto_scale_policy": [
+			{
+				"criteria_parameter": {
+					"type": "monitoring parameter name",
+					"threshold": "threshold"
+				},
+				"action_type": "scale-out to different flavour ID"
+			},
+			{
+				"criteria_parameter": {
+					"monitoring_parameter": "monitoring parameter name",
+					"threshold": "threshold"
+				},
+				"action_type": "scale-out to different flavour ID"
+			}
+		],
+		"connection_points": [
+			{
+				"id": "connectionpointid1",
+				"type": "virtual/physical port/nic or vpn endpoint ip"
+			},
+			{
+				"id": "connectionpointid2",
+				"type": "virtual/physical port/nic or vpn endpoint ip"
+			}
+		],
+		"monitoring_parameters": [
+			{
+				"monitoring_parameter": "memory-consumption"
+			},
+			{
+				"monitoring_parameter": "CPU-utilization"
+			},
+			{
+				"monitoring_parameter": "bandwidth-consumption"
+			},
+			{
+				"monitoring_parameter": "VNFC downtime"
+			}
+		],
+		"service_deployment_flavour": "reference of the nsd:service_deployment_flavour used",
+		"vendor": "vendor of the NS",
+		"version": "version of the NSD",
+		"vlrs": [
+			{
+				"vlr": "reference of the vlr id"
+			},
+			{
+				"vlr": "reference of the vlr id"
+			}
+		],
+		"vnfrs": [
+			{
+				"vnfr": "reference of the vnfr id"
+			},
+			{
+				"vnfr": "reference of the vnfr id"
+			}
+		],
+		"lifecycle_event": {
+			"start": "path/to/script",
+			"stop": "path/to/script",
+			"restart": "path/to/script"
+		},
+		"vnf_dependency": [
+			{
+				"source_vnf": "sourcevnfid",
+				"target_vnf": "targetvnfid"
+			},
+			{
+				"source_vnf": "sourcevnfid",
+				"target_vnf": "targetvnfid"
+			}
+		],
+		"vnffgrs": [
+			{
+				"vnffgr": "reference of a vnffgr of this ns instance"
+			},
+			{
+				"vnffgr": "reference of a vnffgr of this ns instance"
+			}
+		],
+		"pnfrs": [
+			{
+				"pnfr": "reference of a pnfr of this ns instance"
+			},
+			{
+				"pnfr": "reference of a pnfr of this ns instance"
+			}
+		],
+		"descriptor_reference": "reference to the nsd used",
+		"resource_reservation": {
+			"cpu": "",
+			"ram": "",
+			"disk": ""
+		},
+		"runtime_policy_info": [
+			{
+				"policy": "runtime policy 1"
+			},
+			{
+				"policy": "runtime policy 2"
+			}
+		],
+		"status": "flag to report status of the NS instance",
+		"notifications": [
+			{
+				"notification": "system that has registered to receive notifications about status change, eg ip:port"
+			},
+			{
+				"notification": "system that has registered to receive notifications about status change, eg ip:port"
+			}
+		],
+		"lifecycle_event_history": [
+			{
+				"lifecycle_event_type": "start/stop/restart",
+				"datetime": "1970/1/1 00:00:00"
+			},
+			{
+				"lifecycle_event_type": "start/stop/restart",
+				"datetime": "1970/1/1 00:00:00"
+			}
+		],
+		"audit_log": [
+			{
+				"event": "operational event",
+				"datetime": "1970/1/1 00:00:00"
+			},
+			{
+				"event": "operational event",
+				"datetime": "1970/1/1 00:00:00"
+			}
+		]
+	}
+}
