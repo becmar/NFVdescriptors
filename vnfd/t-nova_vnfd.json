@@ -102,7 +102,7 @@
 						"monitoring_parameter": "bandwidth-consumption"
 					},
 					{
-						"monitoring_parameter": "VNFC downtime"
+						"monitoring_parameter": "VNFC-downtime"
 					}
 				],
 				"cpu_instruction_set_extension": "",
@@ -151,7 +151,7 @@
 				},
 				"platform_pcie_parameters": [
 					{ 
-						"type:" "type of pcie device e.g. NIC",
+						"type": "type of pcie device e.g. NIC",
 						"general_capabilities": "",
 						"bandwidth": "",
 						"device_pass_through": "True/False",
@@ -305,7 +305,7 @@
 				"description": "Maximum memory consumed by the VNF"
 			},
 			{
-				"monitoring_parameter": "max CPU-utilization",
+				"monitoring_parameter": "CPU-utilization",
 				"description": ""
 			},
 			{
@@ -313,7 +313,7 @@
 				"description": ""
 			},
 			{
-				"monitoring_parameter": "VNFC downtime",
+				"monitoring_parameter": "VNFC-downtime",
 				"description": ""
 			}
 		],
@@ -326,7 +326,49 @@
 					"vdu_reference": "vduid for this deployment",
 					"number_of_instances": "number of VDU instance required",
 					"constituent_vnfc": "references vnfc id"
-				}
+				},
+				"assurance-params":[
+					{
+                  		"param-id":"memory-consumption",
+                  		"value":"1",
+                  		"unit":"MB",
+                  		"formula": "memory-consumption LT 1",
+		                "violation": [
+		                	{
+		                		"breaches_count": 2, 
+		                		"interval": 30
+		                	},
+		                	{
+								"breaches_count": 5, 
+								"interval": 120
+							}
+						],
+						"penalty": {
+							"type" : "discount",
+							"value": 5,
+							"unit": "%",
+							"validity": "P1D" 
+						}
+               		},
+					{
+                  		"param-id":"CPU-utilization",
+                  		"value":"70",
+                  		"unit":"percentage",
+                  		"formula": "CPU-utilization GT 70",
+		                "violation": [
+		                	{
+		                		"breaches_count": 2, 
+		                		"interval": 30
+		                	}
+						],
+						"penalty": {
+							"type" : "discount",
+							"value": 5,
+							"unit": "%",
+							"validity": "P1D" 
+						}
+               		}
+				]
 			},
 			{
 				"id": "vnfflavourid2",
@@ -336,7 +378,49 @@
 					"vdu_reference": "vduid for this deployment",
 					"number_of_instances": "number of VDU instance required",
 					"constituent_vnfc": "references vnfc id"
-				}
+				},
+				"assurance-params":[
+					{
+                  		"param-id":"memory-consumption",
+                  		"value": 1.5,
+                  		"unit":"MB",
+                  		"formula": "memory-consumption LT 1.5",
+		                "violation": [
+		                	{
+		                		"breaches_count": 2, 
+		                		"interval": 30
+		                	},
+		                	{
+								"breaches_count": 5, 
+								"interval": 120
+							}
+						],
+						"penalty": {
+							"type" : "discount",
+							"value": 0.05,
+							"unit": "percentage",
+							"validity": "P1D" 
+						}
+               		},
+					{
+                  		"param-id":"CPU-utilization",
+                  		"value": 0.8,
+                  		"unit":"percentage",
+                  		"formula": "CPU-utilization LT 0.8",
+		                "violation": [
+		                	{
+		                		"breaches_count": 2, 
+		                		"interval": 30
+		                	}
+						],
+						"penalty": {
+							"type" : "discount",
+							"value": 0.05,
+							"unit": "percentage",
+							"validity": "P1D" 
+						}
+               		}
+				]
 			},
 			{
 				"id": "vnfflavourid1",
@@ -346,7 +430,49 @@
 					"vdu_reference": "vduid for this deployment",
 					"number_of_instances": "number of VDU instance required",
 					"constituent_vnfc": "references vnfc id"
-				}
+				},
+				"assurance-params":[
+					{
+                  		"param-id":"memory-consumption",
+                  		"value": 1,
+                  		"unit":"MB",
+                  		"formula": "memory-consumption LT 1",
+		                "violation": [
+		                	{
+		                		"breaches_count": 2, 
+		                		"interval": 30
+		                	},
+		                	{
+								"breaches_count": 5, 
+								"interval": 120
+							}
+						],
+						"penalty": {
+							"type" : "discount",
+							"value": 0.05,
+							"unit": "percentage",
+							"validity": "P1D" 
+						}
+               		},
+					{
+                  		"param-id":"CPU-utilization",
+                  		"value": 0.85,
+                  		"unit":"percentage",
+                  		"formula": "CPU-utilization LT 0.85",
+		                "violation": [
+		                	{
+		                		"breaches_count": 2, 
+		                		"interval": 30
+		                	}
+						],
+						"penalty": {
+							"type" : "discount",
+							"value": 0.05,
+							"unit": "percentage",
+							"validity": "P1D" 
+						}
+               		}
+				]
 			}
 		],
 		"auto_scale_policy": [

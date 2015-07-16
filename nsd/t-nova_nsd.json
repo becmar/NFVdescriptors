@@ -75,7 +75,7 @@
 	        "assurance_parameters": [
 	            "__comment": "the values are calculated based on the values of the VNF selected flavour",
 	            {
-	    	       "__comment": ""
+	    	       "__comment": "",
 	               "name": "availability",
 	               "value": "GT(min(vnfs[1].availability, vnfs[2].availability))",
 	               "formula": "min(vnfs[1].availability, vnfs[2].availability)",
