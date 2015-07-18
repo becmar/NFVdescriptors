@@ -40,7 +40,7 @@
 				"monitoring_parameter": "availability"
 			},
 			{
-				"monitoring_parameter": "raw consuption"
+				"monitoring_parameter": "ram-consumption"
 			},
 		],
 		"service_deployment_flavour": [
@@ -54,7 +54,41 @@
 					"affinity": "placement policy between instances",
 					"capability": "eg instance capacity, 50% * NS capacity",
 					"number_of_instances": "number of vnf instances required"
-				}
+				},
+				"assurance_parameters": [
+		            "__comment": "the values are calculated based on the values of the VNF selected flavour",
+		            {
+		            	"__comment": "",
+		            	"name": "availability",
+		            	"value": "GT(min(vnfs[1].availability, vnfs[2].availability))",
+		            	"formula": "min(vnfs[1].availability, vnfs[2].availability)",
+		            	"violation": [
+		            		{
+		            			"breaches_count": "5",
+		            			"interval": "120",
+		            			"penalty": "not included, as they're not relevant to the Orchestrator"
+		            		}
+		            	]
+		            }, 
+		            {
+		            	"name": "ram-consumption",
+		            	"value": "LT(add(vnfs[1].memory-consumption, vnfs[2].memory-consumption, 100))",
+		            	"__comment": "/* allow 100MB extra over the combined consumption by the VNFs */",
+		            	"formula": "add(vnfs[1].memory-consumption, vnfs[2].memory-consumption, 100)",
+		            	"violation": [
+		            		{
+		            			"breaches_count": "5",
+		            			"interval": "120",
+		            			"penalty": "not included, as they're not relevant to the Orchrstrator"
+		            		},
+		            		{
+		            			"breaches_count": "10",
+		            			"interval": "300",
+		            			"penalty": "not included, as they're not relevant to the Orchrstrator"
+		            		}
+		            	],  
+		            },
+		        ],
 			},
 			{
 				"id": "nsflavourid2",
@@ -66,49 +100,47 @@
 					"affinity": "placement policy between instances",
 					"capability": "eg instance capacity, 50% * NS capacity",
 					"number_of_instances": "number of vnf instances required"
-				}
+				},
+				"assurance_parameters": [
+		            "__comment": "the values are calculated based on the values of the VNF selected flavour",
+		            {
+		            	"__comment": "",
+		            	"name": "availability",
+		            	"value": "GT(min(vnfs[1].availability, vnfs[2].availability))",
+		            	"formula": "min(vnfs[1].availability, vnfs[2].availability)",
+		            	"violation": [
+		            		{
+		            			"breaches_count": "5",
+		            			"interval": "120",
+		            			"penalty": "not included, as they're not relevant to the Orchestrator"
+		            		}
+		            	]
+		            }, 
+		            {
+		            	"name": "ram-consumption",
+		            	"value": "LT(add(vnfs[1].memory-consumption, vnfs[2].memory-consumption, 100))",
+		            	"__comment": "/* allow 100MB extra over the combined consumption by the VNFs */",
+		            	"formula": "add(vnfs[1].memory-consumption, vnfs[2].memory-consumption, 100)",
+		            	"violation": [
+		            		{
+		            			"breaches_count": "5",
+		            			"interval": "120",
+		            			"penalty": "not included, as they're not relevant to the Orchrstrator"
+		            		},
+		            		{
+		            			"breaches_count": "10",
+		            			"interval": "300",
+		            			"penalty": "not included, as they're not relevant to the Orchrstrator"
+		            		}
+		            	],  
+		            },
+		        ],
 			}
 		],
 	    "t_nova_service_deployment_flavour": [
 			{
-	        "name": "gold", 
-	        "assurance_parameters": [
-	            "__comment": "the values are calculated based on the values of the VNF selected flavour",
-	            {
-	    	       "__comment": "",
-	               "name": "availability",
-	               "value": "GT(min(vnfs[1].availability, vnfs[2].availability))",
-	               "formula": "min(vnfs[1].availability, vnfs[2].availability)",
-	               "threshold": "0.95",
-	               "violation": [
-	                  {
-	                     "breaches_count": "5",
-	                     "interval": "120",
-	                     "penalty": "not included, as they're not relevant to the Orchestrator"
-	                  }
-	               ]
-	            }, 
-	        {
-	               "name": "ram-consumption",
-	               "value": "LT(add(vnfs[1].memory-consumption, vnfs[2].memory-consumption, 100))",
-	               "__comment": "/* allow 100MB extra over the combined consumption by the VNFs */",
-	               "formula": "add(vnfs[1].memory-consumption, vnfs[2].memory-consumption, 100)",
-	               "threshold": "0.95",
-	               "violation": [
-	                  {
-	                     "breaches_count": "5",
-	                     "interval": "120",
-	                     "penalty": "not included, as they're not relevant to the Orchrstrator"
-	                  },
-	                  {
-	                     "breaches_count": "10",
-	                     "interval": "300",
-	                     "penalty": "not included, as they're not relevant to the Orchrstrator"
-	                  }
-	               ],  
-	        },
-			],
-			},
+		        "name": "gold"
+			}
 		],
 		"billing": {
 			"type": "billing model",
@@ -116,7 +148,7 @@
 			"price":{ 
 				"currency:": "",
 				"setupCost": "",
-				"price_pre_period": ""
+				"price_per_period": ""
 			}
 		},
 		"auto_scale_policy": [
