@@ -1,9 +1,9 @@
 {
 	"vnfd": {
 		"release": "T-NOVA v.0.1",
-		"id": "id number",
-		"vendor": "vendor generating this VNFD",
-		"provider_id": "function provider id",
+		"id": "3a2971d0-2eae-11e5-a2cb-0800200c9a66",
+		"vendor": "NCSRD",
+		"provider_id": "0000001",
 		"description": "description of the function of the VNF",
 		"description_version": "version of this VNFD",
 		"version": "version of VNF software",
