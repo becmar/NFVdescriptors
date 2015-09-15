@@ -1,0 +1,72 @@
+{
+	"vlr": {
+		"id": "vlr instance id",
+		"version": "version of the vld used",
+		"vendor": "vendor generating this vld",
+		"number_of_endpoints": "eg E-Line = 2",
+		"root_requirement": "root bandwidth required",
+		"leaf_requirement": "leaf bandwidth required",
+		"qos": {
+			"latency": "",
+			"jitter": ""
+		},
+		"test_access": "none, passive moniotring or active monitoring",
+		"connections": [
+			{
+				"connection": "reference to attached connection points id, nsr/vnfr/pnfr:connection_point:id"
+			},
+			{
+				"connection": "reference to attached connection points id, nsr/vnfr/pnfr:connection_point:id"
+			}
+		],
+		"parent_ns": "parent nsr id",
+		"vnffgr_reference": "vnffg instances that this link participates",
+		"descriptor_reference": "version of this VLD",
+		"vim_id": "id of managing VIM",
+		"__comment": "bandwidth allocated for each of the qos options"
+		"allocated_capacity": [
+			{
+				"qos": "qos1",
+				"bandwidth": "5M"
+			},
+			{
+				"qos": "qos2",
+				"bandwidth": "10M"
+			}
+
+		],
+		"status": "flag to report status",
+		"__comment": "listing of systems that have registered to receive status updates", 
+		"notification": [
+			{
+				"id": "system id",
+				"ip": "system ip",
+				"port": "system port"
+			},
+			{
+				"id": "system id",
+				"ip": "system ip",
+				"port": "system port"
+			}
+		],
+		"lifecycle_event_history": [
+			{
+				"event": "creation/configuration/scale",
+				"timestamp": "rfc timestamp",
+				"success": "1/0"
+			},
+			{
+				"event": "creation/configuration/scale",
+				"timestamp": "rfc timestamp",
+				"success": "1/0"
+			}
+		],
+		"audit_log":[
+			{
+				"event": "operator login, boot, alarm",
+				"timestamp": "rfc timestamp"
+			}
+		],
+		"connectivity_type": "E-line or E-LAN or E-Tree"
+	}
+}
