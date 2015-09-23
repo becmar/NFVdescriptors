@@ -1,0 +1,103 @@
+heat_template_version: 2014-10-16
+
+description: Template to deploy one instance with a private network devoloped on the spot
+
+parameters:
+  flavor:
+    type: string
+    label: flavor
+    description: flavor to be used
+    default: m1.medium
+  image:
+   type: string
+   label: Image name or ID
+   description: Image to be used for compute instance
+   default: vProxy
+  public_net:
+    type: string
+    default: 881d425a-a35f-4236-b147-b79f945dd882
+    description: Id of the public network for the compute server
+
+
+resources: #in this section, the resources are defined
+  mngt_net: #creating the MNGT network
+    type: OS::Neutron::Net
+    properties:
+     name: MNGT
+
+  monitoring_net:
+    type: OS::Neutron::Net
+    properties:
+     name: MONITORING
+
+  datapath_net:
+    type: OS::Neutron::Net
+    properties:
+     name: DATAPATH
+
+  port1:
+    type: OS::Neutron::Port
+    properties:
+      network_id: { get_resource: mngt_net }
+      fixed_ips:
+       - subnet_id: { get_resource: mngt_subnet }
+
+  floating_ip1:
+    type: OS::Neutron::FloatingIP
+    properties:
+      floating_network_id: { get_param: public_net }
+      port_id: { get_resource: port1 }
+
+  #storage_net:
+  #  type: OS::Neutron::Net
+  #  properties:
+  #  name: STORAGE
+
+  mngt_subnet: #creating the subnets
+    type: OS::Neutron::Subnet
+    properties:
+      network_id: { get_resource: mngt_net }
+      cidr: 10.10.0.0/24
+      dns_nameservers:
+        - 8.8.8.8
+
+  monitoring_subnet:
+    type: OS::Neutron::Subnet
+    properties:
+      network_id: { get_resource: monitoring_net }
+      cidr: 192.168.50.0/24
+      dns_nameservers:
+        - 8.8.8.8
+
+  datapath_subnet:
+    type: OS::Neutron::Subnet
+    properties:
+      network_id: { get_resource: datapath_net}
+      cidr: 10.10.1.0/24
+      dns_nameservers:
+        - 8.8.8.8
+
+  #storage_subnet:
+  #  type: OS::Neutron::Subnet
+  #  properties:
+  #    network_id: { get_resource: storage_net }
+  #    cidr: 192.168.70.0/24
+  #    dns_nameservers:
+  #      - 8.8.8.8
+
+  router-interface: #creating the router interface, on an existing router
+    type: OS::Neutron::RouterInterface
+    properties:
+      router_id: 471e2edc-abca-47de-906c-ba0d602e56b4  #this is the id of the router used *it can be defined in the parameters if we want
+      subnet: { get_resource: mngt_subnet } #the subnet the interface is created for
+
+  instance1:
+    type: OS::Nova::Server
+    properties:
+      image: { get_param: image } #getting the image defined by user through parameters or the default if not 
+      name: vnfc1
+      flavor: { get_param: flavor } #getting the flavor
+      networks: #defining the networks attached to 
+        - network: { get_resource: datapath_net }
+        - network: { get_resource: monitoring_net }
+        - port: { get_resource: port1 }

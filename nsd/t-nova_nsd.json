@@ -23,7 +23,6 @@
 		],
 		"lifecycle_event": {
 			"__comment": " /* to be decided later */"
-			
 		},
 		"vnf_dependency": [
 			{
@@ -41,7 +40,7 @@
 			},
 			{
 				"monitoring_parameter": "ram-consumption"
-			},
+			}
 		],
 		"service_deployment_flavour": [
 			{
@@ -86,9 +85,9 @@
 		            			"interval": "300",
 		            			"penalty": "not included, as they're not relevant to the Orchrstrator"
 		            		}
-		            	],  
-		            },
-		        ],
+		            	]
+		            }
+		        ]
 			},
 			{
 				"id": "nsflavourid2",
@@ -132,9 +131,9 @@
 		            			"interval": "300",
 		            			"penalty": "not included, as they're not relevant to the Orchrstrator"
 		            		}
-		            	],  
-		            },
-		        ],
+		            	]
+		            }
+		        ]
 			}
 		],
 	    "t_nova_service_deployment_flavour": [
@@ -185,6 +184,6 @@
 				"pnfd": "reference of a pnfd of this ns"
 			}
 		],
-		"nsd_security": "MD5 hash of the NSD",
-	},
+		"nsd_security": "MD5 hash of the NSD"
+	}
 }

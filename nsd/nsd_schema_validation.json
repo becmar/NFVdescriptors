@@ -1,0 +1,384 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "",
+  "type": "object",
+  "properties": {
+    "nsd": {
+      "id": "/nsd",
+      "type": "object",
+      "properties": {
+        "id": {
+          "id": "/nsd/id",
+          "type": "string"
+        },
+        "name": {
+          "id": "/nsd/name",
+          "type": "string"
+        },
+        "vendor": {
+          "id": "/nsd/vendor",
+          "type": "string"
+        },
+        "version": {
+          "id": "/nsd/version",
+          "type": "string"
+        },
+        "vnfds": {
+          "id": "/nsd/vnfds",
+          "type": "array",
+          "items": {
+              "id": "/nsd/vnfds/0",
+              "type": "object",
+              "properties": {
+                "vnfd": {
+                  "id": "/nsd/vnfds/0/vnfd",
+                  "type": "string"
+                }
+              }
+            }
+        },
+        "vnffgds": {
+          "id": "/nsd/vnffgds",
+          "type": "array",
+          "items": {
+              "id": "/nsd/vnffgds/0",
+              "type": "object",
+              "properties": {
+                "vnffgd": {
+                  "id": "/nsd/vnffgds/0/vnffgd",
+                  "type": "string"
+                }
+              }
+            }
+        },
+        "lifecycle_event": {
+          "id": "/nsd/lifecycle_event",
+          "type": "object",
+          "properties": {
+            "__comment": {
+              "id": "/nsd/lifecycle_event/__comment",
+              "type": "string"
+            }
+          }
+        },
+        "vnf_dependency": {
+          "id": "/nsd/vnf_dependency",
+          "type": "array",
+          "items": {
+              "id": "/nsd/vnf_dependency/0",
+              "type": "object",
+              "properties": {
+                "source_vnf": {
+                  "id": "/nsd/vnf_dependency/0/source_vnf",
+                  "type": "string"
+                },
+                "target_vnf": {
+                  "id": "/nsd/vnf_dependency/0/target_vnf",
+                  "type": "string"
+                }
+              }
+            }
+        },
+        "monitoring_parameters": {
+          "id": "/nsd/monitoring_parameters",
+          "type": "array",
+          "items": {
+              "id": "/nsd/monitoring_parameters/0",
+              "type": "object",
+              "properties": {
+                "monitoring_parameter": {
+                  "id": "/nsd/monitoring_parameters/0/monitoring_parameter",
+                  "type": "string"
+                }
+              }
+            }
+        },
+        "service_deployment_flavour": {
+          "id": "/nsd/service_deployment_flavour",
+          "type": "array",
+          "items": {
+              "id": "/nsd/service_deployment_flavour/0",
+              "type": "object",
+              "properties": {
+                "id": {
+                  "id": "/nsd/service_deployment_flavour/0/id",
+                  "type": "string"
+                },
+                "flavour_key": {
+                  "id": "/nsd/service_deployment_flavour/0/flavour_key",
+                  "type": "string"
+                },
+                "constituent_vnf": {
+                  "id": "/nsd/service_deployment_flavour/0/constituent_vnf",
+                  "type": "object",
+                  "properties": {
+                    "vnf_reference": {
+                      "id": "/nsd/service_deployment_flavour/0/constituent_vnf/vnf_reference",
+                      "type": "string"
+                    },
+                    "vnf_flavour_id_reference": {
+                      "id": "/nsd/service_deployment_flavour/0/constituent_vnf/vnf_flavour_id_reference",
+                      "type": "string"
+                    },
+                    "redundancy_model": {
+                      "id": "/nsd/service_deployment_flavour/0/constituent_vnf/redundancy_model",
+                      "type": "string"
+                    },
+                    "affinity": {
+                      "id": "/nsd/service_deployment_flavour/0/constituent_vnf/affinity",
+                      "type": "string"
+                    },
+                    "capability": {
+                      "id": "/nsd/service_deployment_flavour/0/constituent_vnf/capability",
+                      "type": "string"
+                    },
+                    "number_of_instances": {
+                      "id": "/nsd/service_deployment_flavour/0/constituent_vnf/number_of_instances",
+                      "type": "string"
+                    }
+                  }
+                },
+                "assurance_parameters": {
+                  "id": "/nsd/service_deployment_flavour/0/assurance_parameters",
+                  "type": "array",
+                  "items": [
+                    {
+                      "id": "/nsd/service_deployment_flavour/0/assurance_parameters/0",
+                      "type": "object",
+                      "properties": {
+                        "__comment": {
+                          "id": "/nsd/service_deployment_flavour/0/assurance_parameters/0/__comment",
+                          "type": "string"
+                        },
+                        "name": {
+                          "id": "/nsd/service_deployment_flavour/0/assurance_parameters/0/name",
+                          "type": "string"
+                        },
+                        "value": {
+                          "id": "/nsd/service_deployment_flavour/0/assurance_parameters/0/value",
+                          "type": "string"
+                        },
+                        "formula": {
+                          "id": "/nsd/service_deployment_flavour/0/assurance_parameters/0/formula",
+                          "type": "string"
+                        },
+                        "violation": {
+                          "id": "/nsd/service_deployment_flavour/0/assurance_parameters/0/violation",
+                          "type": "array",
+                          "items": {
+                            "id": "/nsd/service_deployment_flavour/0/assurance_parameters/0/violation/0",
+                            "type": "object",
+                            "properties": {
+                              "breaches_count": {
+                                "id": "/nsd/service_deployment_flavour/0/assurance_parameters/0/violation/0/breaches_count",
+                                "type": "string"
+                              },
+                              "interval": {
+                                "id": "/nsd/service_deployment_flavour/0/assurance_parameters/0/violation/0/interval",
+                                "type": "string"
+                              },
+                              "penalty": {
+                                "id": "/nsd/service_deployment_flavour/0/assurance_parameters/0/violation/0/penalty",
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "id": "/nsd/service_deployment_flavour/0/assurance_parameters/1",
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "id": "/nsd/service_deployment_flavour/0/assurance_parameters/1/name",
+                          "type": "string"
+                        },
+                        "value": {
+                          "id": "/nsd/service_deployment_flavour/0/assurance_parameters/1/value",
+                          "type": "string"
+                        },
+                        "__comment": {
+                          "id": "/nsd/service_deployment_flavour/0/assurance_parameters/1/__comment",
+                          "type": "string"
+                        },
+                        "formula": {
+                          "id": "/nsd/service_deployment_flavour/0/assurance_parameters/1/formula",
+                          "type": "string"
+                        },
+                        "violation": {
+                          "id": "/nsd/service_deployment_flavour/0/assurance_parameters/1/violation",
+                          "type": "array",
+                          "items": [
+                            {
+                              "id": "/nsd/service_deployment_flavour/0/assurance_parameters/1/violation/0",
+                              "type": "object",
+                              "properties": {
+                                "breaches_count": {
+                                  "id": "/nsd/service_deployment_flavour/0/assurance_parameters/1/violation/0/breaches_count",
+                                  "type": "string"
+                                },
+                                "interval": {
+                                  "id": "/nsd/service_deployment_flavour/0/assurance_parameters/1/violation/0/interval",
+                                  "type": "string"
+                                },
+                                "penalty": {
+                                  "id": "/nsd/service_deployment_flavour/0/assurance_parameters/1/violation/0/penalty",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            {
+                              "id": "/nsd/service_deployment_flavour/0/assurance_parameters/1/violation/1",
+                              "type": "object",
+                              "properties": {
+                                "breaches_count": {
+                                  "id": "/nsd/service_deployment_flavour/0/assurance_parameters/1/violation/1/breaches_count",
+                                  "type": "string"
+                                },
+                                "interval": {
+                                  "id": "/nsd/service_deployment_flavour/0/assurance_parameters/1/violation/1/interval",
+                                  "type": "string"
+                                },
+                                "penalty": {
+                                  "id": "/nsd/service_deployment_flavour/0/assurance_parameters/1/violation/1/penalty",
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+        },
+        "t_nova_service_deployment_flavour": {
+          "id": "/nsd/t_nova_service_deployment_flavour",
+          "type": "array",
+          "items": {
+            "id": "/nsd/t_nova_service_deployment_flavour/0",
+            "type": "object",
+            "properties": {
+              "name": {
+                "id": "/nsd/t_nova_service_deployment_flavour/0/name",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "billing": {
+          "id": "/nsd/billing",
+          "type": "object",
+          "properties": {
+            "type": {
+              "id": "/nsd/billing/type",
+              "type": "string"
+            },
+            "period": {
+              "id": "/nsd/billing/period",
+              "type": "string"
+            },
+            "price": {
+              "id": "/nsd/billing/price",
+              "type": "object",
+              "properties": {
+                "currency:": {
+                  "id": "/nsd/billing/price/currency:",
+                  "type": "string"
+                },
+                "setupCost": {
+                  "id": "/nsd/billing/price/setupCost",
+                  "type": "string"
+                },
+                "price_per_period": {
+                  "id": "/nsd/billing/price/price_per_period",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "auto_scale_policy": {
+          "id": "/nsd/auto_scale_policy",
+          "type": "array",
+          "items": {
+              "id": "/nsd/auto_scale_policy/0",
+              "type": "object",
+              "properties": {
+                "criteria_parameter": {
+                  "id": "/nsd/auto_scale_policy/0/criteria_parameter",
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "id": "/nsd/auto_scale_policy/0/criteria_parameter/type",
+                      "type": "string"
+                    },
+                    "threshold": {
+                      "id": "/nsd/auto_scale_policy/0/criteria_parameter/threshold",
+                      "type": "string"
+                    }
+                  }
+                },
+                "action_type": {
+                  "id": "/nsd/auto_scale_policy/0/action_type",
+                  "type": "string"
+                }
+              }
+            }
+        },
+        "connection_points": {
+          "id": "/nsd/connection_points",
+          "type": "array",
+          "items": {
+              "id": "/nsd/connection_points/0",
+              "type": "object",
+              "properties": {
+                "id": {
+                  "id": "/nsd/connection_points/0/id",
+                  "type": "string"
+                },
+                "type": {
+                  "id": "/nsd/connection_points/0/type",
+                  "type": "string"
+                }
+              }
+            }
+        },
+        "pnfds": {
+          "id": "/nsd/pnfds",
+          "type": "array",
+          "items": {
+              "id": "/nsd/pnfds/0",
+              "type": "object",
+              "properties": {
+                "pnfd": {
+                  "id": "/nsd/pnfds/0/pnfd",
+                  "type": "string"
+                }
+              }
+            }
+        },
+        "nsd_security": {
+          "id": "/nsd/nsd_security",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "vendor",
+        "version",
+        "vnfds",
+        "service_deployment_flavour",
+        "t_nova_service_deployment_flavour",
+        "connection_points"
+      ]
+    }
+  },
+  "required": [
+    "nsd"
+  ]
+}
