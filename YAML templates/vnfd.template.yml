@@ -1,6 +1,6 @@
 # YAML VNFD transscripted from ETSI VNFD - T-NOVA VNFD and OpenMANO examples
-# Version: 2.0.1
-# Date: 23/09/2015 
+# Version: 2.0.2
+# Date: 24/09/2015 
 # Copyright: T-NOVA Consortium
 # Info: Template for single VNFC VNF 
 # Changelog: Initial version
@@ -29,13 +29,12 @@ vnf:
 
   # VNF lifecycle events redirect to the appropriate VDU lifecycle events below and reference the vdu ids.
   vnf_lifecycle_events:
-    events:
-      start:
-        - vdu_id: "vdu0"
-          vdu_event: "start"
+	  start:
+      - vdu_id: "vdu0"
+	  	vdu_event: "start"
       stop:
-        - vdu_id: "vdu0"
-          vdu_event: "stop"
+      - vdu_id: "vdu0"
+        vdu_event: "stop"
       restart: []
       scale-in: []
       scale-out: []
@@ -120,45 +119,51 @@ vnf:
         networking:
           # Start of T-NOVA networking section
           - connection_point_id: "mngt0" # for monitoring and management purposes
-            vitual_link_reference: "TO COMPLETE"
+            vitual_link_reference: "mngt"
             type: "" # The type of interface i.e floating_ip, vnic, tap "TO COMPLETE"
             bandwidth: # informative
           - connection_point_id: "data0" # datapath interface
-            vitual_link_reference: "TO COMPLETE"
+            vitual_link_reference: "data"
             type: "" # The type of interface i.e floating_ip, vnic, tap "TO COMPLETE"
             bandwidth: # informative
           - connection_point_id: "data1"
-            vitual_link_reference: "TO COMPLETE"
+            vitual_link_reference: "data"
             type: "" # The type of interface i.e floating_ip, vnic, tap "TO COMPLETE"
             bandwidth: # informative
-          - connection_point_id: "store0"
+          - connection_point_id: "store"
             vitual_link_reference: "TO COMPLETE"
             type: "" # The type of interface i.e floating_ip, vnic, tap "TO COMPLETE"
             bandwidth: # informative
 
       vlink:
-        # T-NOVA VL Section
+        # T-NOVA VL Section : relative to resources:networks HEAT template, subnets and dns information should be filled from the Orchestrator therefore are not put here. 
         - vl_id: "mngt"
           connectivity_type: "E-Line"
-          connection_points_reference: ["mngt0", "TO BE COMPLETED"]
+          connection_points_reference: ["vdu0:mngt0", "vnf0:mngt0"]
           root_requirement: "10Gbps"
           leaf_requirement: "10Gbps" # Used only for E-tree
           qos: "" # optional
-          test_access: "none" # optional
+		  test_access: "active" # Active: Use ext IP to be reached, Passive: L2 access via steering, None: no access
+		  net_segment: "192.168.1.0/24" #a-priori allocation by the system during approval of the VNFD. 
+		  dhcp: "TRUE"
         - vl_id: "data"
           connectivity_type: "E-LAN"
-          connection_points_reference: ["data0", "data1", "TO BE COMPLETED"]
+          connection_points_reference: ["vdu0:data0", "vdu0:data1", "vnf0:data0"]
           root_requirement: "10Gbps"
           leaf_requirement: "10Gbps" # Used only for E-tree
           qos: "" # optional
-          test_access: "none" # optional
+          test_access: "passive" 
+		  net_segment: "192.168.1.0/24" #a-priori allocation by the system during approval of the VNFD.
+		  dhcp: "TRUE"
         - vl_id: "store"
           connectivity_type: "E-Line"
-          connection_points_reference: ["store0", "TO BE COMPLETED"]
+          connection_points_reference: ["vdu0:store0"]
           root_requirement: "10Gbps"
           leaf_requirement: "10Gbps" # Used only for E-tree
           qos: "" # optional
           test_access: "none" # optional
+		  net_segment: "192.168.1.0/24" #a-priori allocation by the system during approval of the VNFD.
+		  dhcp: "TRUE"
 
       monitoring_parameters:
         generic: ["cpu", "memory_total", "memory_free", "memory_used", "disk_io", "disk_free", "bps in", "bps out", "packets_in", "packets_out", "errors", "dropped"]
