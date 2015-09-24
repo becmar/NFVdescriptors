@@ -1,0 +1,271 @@
+{
+  "vnf": {
+    "release": "T-NOVA v0.2", 
+    "id": "52439e7c-c85c-4bae-88c4-8ee8da4c5485", 
+    "provider": "NCSRD", 
+    "provider_id": 23, 
+    "description": "The function identifies, classifies and forwards network traffic according to policies", 
+    "descriptor_version\"": "0.1", 
+    "version": "0.22", 
+    "manifest_file_md5": "fa8773350c4c236268f0bd7807c8a3b2", 
+    "type": "TC", 
+    "date_created": "2015-09-14T16:10:00Z", 
+    "date_modified": "2015-09-14T16:10:00Z", 
+    "trade": true, 
+    "billing_model": {
+      "model": "PAYG", 
+      "period": "P1W", 
+      "price": {
+        "unit": "EUR", 
+        "min_per_period": 5, 
+        "max_per_period": 10, 
+        "setup": 0
+      }
+    }, 
+    "vnf_lifecycle_events": {
+      "events": {
+        "start": [
+          {
+            "vdu_id": "vdu0", 
+            "vdu_event": "start"
+          }
+        ], 
+        "stop": [
+          {
+            "vdu_id": "vdu0", 
+            "vdu_event": "stop"
+          }
+        ], 
+        "restart": [], 
+        "scale-in": [], 
+        "scale-out": []
+      }
+    }, 
+    "vdu": {
+      "id": "vdu0", 
+      "vm_image": "http://store.t-nova.eu/NCSRDv/TC_ncsrd.v.022.qcow", 
+      "vm_image_md5": "a5e4533d63f71395bdc7debd0724f433", 
+      "resource_requirements": {
+        "vcpus": 2, 
+        "cpu_support_accelerator": "AES-NI", 
+        "memory": 2, 
+        "memory_unit": "GB", 
+        "memory_parameters": {
+          "large_pages_required": "", 
+          "numa_allocation_policy": ""
+        }, 
+        "storage": {
+          "size": 20, 
+          "size_unit": "GB", 
+          "persistence": false
+        }, 
+        "hypervisor_parameters": {
+          "type": "QEMU-KVM", 
+          "version": "10002|12001|2.6.32-358.el6.x86_64"
+        }, 
+        "platform_pcie_parameters": {
+          "device_pass_through": true, 
+          "SR-IOV": true
+        }, 
+        "network_interface_card_capabilities": {
+          "mirroring": false, 
+          "SR-IOV": true
+        }, 
+        "network_interface_bandwidth": "10Gbps", 
+        "data_processing_acceleration_library": "eg DPDK v1.0", 
+        "vswitch_capabilities": {
+          "type": "ovs", 
+          "version": "2.0", 
+          "overlay_tunnel": "GRE"
+        }
+      }, 
+      "networking_resources": null, 
+      "vdu_lifecycle_events": {
+        "drivers": [
+          {
+            "driver": "ssh", 
+            "authentication_type": "PubKeyAuthenitcation"
+          }, 
+          {
+            "driver": "https", 
+            "authentication_type": "Digest"
+          }
+        ], 
+        "events": {
+          "start": {
+            "command": "service xxx start", 
+            "template_file_format": "json", 
+            "template_file": "{ \"controller\":\"cntr_IP\", \"vdu1\":\"vdu1_IP\", \"vdu2\":\"vdu2_IP\" }"
+          }, 
+          "stop": {
+            "command": "service vtc stop", 
+            "template_file_format": "json", 
+            "template_file": "{\"controller\":\"cntr_IP\",\"vdu1\":\"vdu1_IP\",\"vdu2\":\"vdu2_IP\"}"
+          }, 
+          "restart": {
+            "command": "service vtc shutoff", 
+            "template_file_format": "json", 
+            "template_file": "{\"controller\":\"cntr_IP\",\"vdu1\":\"vdu1_IP\",\"vdu2\":\"vdu2_IP\"}"
+          }, 
+          "scale-in": null, 
+          "scale-out": null
+        }
+      }, 
+      "scale_in_out": {
+        "minimum": 1, 
+        "maximum": 5
+      }, 
+      "vnfc": {
+        "id": "vdu0:vnfc0", 
+        "networking": [
+          {
+            "connection_point_id": "mngt0", 
+            "vitual_link_reference": "TO COMPLETE", 
+            "type": "", 
+            "bandwidth": null
+          }, 
+          {
+            "connection_point_id": "data0", 
+            "vitual_link_reference": "TO COMPLETE", 
+            "type": "", 
+            "bandwidth": null
+          }, 
+          {
+            "connection_point_id": "data1", 
+            "vitual_link_reference": "TO COMPLETE", 
+            "type": "", 
+            "bandwidth": null
+          }, 
+          {
+            "connection_point_id": "store0", 
+            "vitual_link_reference": "TO COMPLETE", 
+            "type": "", 
+            "bandwidth": null
+          }
+        ]
+      }, 
+      "vlink": [
+        {
+          "vl_id": "mngt", 
+          "connectivity_type": "E-Line", 
+          "connection_points_reference": [
+            "mngt0", 
+            "TO BE COMPLETED"
+          ], 
+          "root_requirement": "10Gbps", 
+          "leaf_requirement": "10Gbps", 
+          "qos": "", 
+          "test_access": "none"
+        }, 
+        {
+          "vl_id": "data", 
+          "connectivity_type": "E-LAN", 
+          "connection_points_reference": [
+            "data0", 
+            "data1", 
+            "TO BE COMPLETED"
+          ], 
+          "root_requirement": "10Gbps", 
+          "leaf_requirement": "10Gbps", 
+          "qos": "", 
+          "test_access": "none"
+        }, 
+        {
+          "vl_id": "store", 
+          "connectivity_type": "E-Line", 
+          "connection_points_reference": [
+            "store0", 
+            "TO BE COMPLETED"
+          ], 
+          "root_requirement": "10Gbps", 
+          "leaf_requirement": "10Gbps", 
+          "qos": "", 
+          "test_access": "none"
+        }
+      ], 
+      "monitoring_parameters": {
+        "generic": [
+          "cpu", 
+          "memory_total", 
+          "memory_free", 
+          "memory_used", 
+          "disk_io", 
+          "disk_free", 
+          "bps in", 
+          "bps out", 
+          "packets_in", 
+          "packets_out", 
+          "errors", 
+          "dropped"
+        ], 
+        "specific": [
+          "number_of_flows", 
+          "number_of_flows_classified", 
+          "dropped_packets"
+        ]
+      }, 
+      "auto_scale_policy": [
+        {
+          "policy_name": "policy1", 
+          "type": "number_of_flows", 
+          "threshold": "100K", 
+          "action_type": "TO BE COMPLETED e.g flavour ID"
+        }
+      ], 
+      "deployment_flavours": [
+        {
+          "flavour_id": "vnfd0:flavour0", 
+          "flavour_key": "flows_fw_100K", 
+          "constraint": "specific HW constrain", 
+          "constituent_vdu": {
+            "vdu_reference": "vdu0", 
+            "number_of_instances": "1", 
+            "constituent_vnfc": "vd0:vnfc0"
+          }, 
+          "assurance_parameters": [
+            {
+              "param_id": "memory-consumption", 
+              "value": 1, 
+              "unit": "GB", 
+              "formula": "memory-consumption LT 1", 
+              "violation": [
+                {
+                  "breaches_count": 2, 
+                  "interval": 30
+                }, 
+                {
+                  "breaches_count": 5, 
+                  "interval": 120
+                }
+              ], 
+              "penalty": {
+                "type": "discount", 
+                "value": 5, 
+                "unit": "percentage", 
+                "validity": "P1D"
+              }
+            }, 
+            {
+              "param_id": "CPU-utilization", 
+              "value": 85, 
+              "unit": "percentage", 
+              "formula": "CPU-utilization LT 0.85", 
+              "violation": [
+                {
+                  "breaches_count": 2, 
+                  "interval": 30
+                }
+              ], 
+              "penalty": {
+                "type": "discount", 
+                "value": 5, 
+                "unit": "percentage", 
+                "validity": "P1D"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
