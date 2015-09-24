@@ -7,8 +7,8 @@ $ sudo apt-get install python-pip
 $ sudo pip install pyyaml
 ```
 
-## Generate json format vnfd descriptor
+## Generate json format descriptors
 
 ```sh
-$ python vnfd_generator.py
+$ python descriptors_generator.py
 ```
