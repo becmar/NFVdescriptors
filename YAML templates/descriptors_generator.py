@@ -38,11 +38,11 @@ for yml_template in yml_template_files:
         stream = file(yml_template, 'r')
 
         data = ordered_load(stream, yaml.SafeLoader)
-        json = json.dumps(data, indent=2, sort_keys=False)
+        jsondata = json.dumps(data, indent=2, sort_keys=False)
 
         new_filename = yml_template.replace('template.yml', 'json')
         json_file = open(new_filename, "w")
-        json_file.write(json)
+        json_file.write(jsondata)
         json_file.close()
 
         print '- %s file generated.' % new_filename

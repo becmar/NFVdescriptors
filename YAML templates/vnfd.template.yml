@@ -7,11 +7,11 @@
 
 vnf:
   release: "T-NOVA v0.2" # Release information
-  id: "52439e7c-c85c-4bae-88c4-8ee8da4c5485"  # NFStore provides the rules, not know prior to uploading and cannot be referenced on time zero
+  id: "52439e7c-c85c-4bae-88c4-8ee8da4c5485" # NFStore provides the rules, not know prior to uploading and cannot be referenced on time zero
   provider: "NCSRD" # Provider(T-NOVA) - Vendor (ETSI)
-  provider_id: 23  # FP given by ID by the Marketplace
+  provider_id: 23 # FP given by ID by the Marketplace
   description: "The function identifies, classifies and forwards network traffic according to policies"
-  descriptor_version": "0.1"
+  descriptor_version: "0.1"
   version: "0.22"
   manifest_file_md5: "fa8773350c4c236268f0bd7807c8a3b2" # Calculated by the NFStore during upload
   type: "TC"
@@ -29,15 +29,15 @@ vnf:
 
   # VNF lifecycle events redirect to the appropriate VDU lifecycle events below and reference the vdu ids.
   vnf_lifecycle_events:
-	  start:
+    start:
       - vdu_id: "vdu0"
-	  	vdu_event: "start"
-      stop:
+        vdu_event: "start"
+    stop:
       - vdu_id: "vdu0"
         vdu_event: "stop"
-      restart: []
-      scale-in: []
-      scale-out: []
+    restart: []
+    scale-in: []
+    scale-out: []
 
   # VDU is the section where the VM properties should be referenced. This template should contain one VDU = 1 VM = 1VNFC and is providing a single flavour
   vdu:
@@ -130,7 +130,7 @@ vnf:
             vitual_link_reference: "data"
             type: "" # The type of interface i.e floating_ip, vnic, tap "TO COMPLETE"
             bandwidth: # informative
-          - connection_point_id: "store"
+          - connection_point_id: "store0"
             vitual_link_reference: "TO COMPLETE"
             type: "" # The type of interface i.e floating_ip, vnic, tap "TO COMPLETE"
             bandwidth: # informative
@@ -143,9 +143,9 @@ vnf:
           root_requirement: "10Gbps"
           leaf_requirement: "10Gbps" # Used only for E-tree
           qos: "" # optional
-		  test_access: "active" # Active: Use ext IP to be reached, Passive: L2 access via steering, None: no access
-		  net_segment: "192.168.1.0/24" #a-priori allocation by the system during approval of the VNFD. 
-		  dhcp: "TRUE"
+          test_access: "active" # Active: Use ext IP to be reached, Passive: L2 access via steering, None: no access
+          net_segment: "192.168.1.0/24" #a-priori allocation by the system during approval of the VNFD.
+          dhcp: "TRUE"
         - vl_id: "data"
           connectivity_type: "E-LAN"
           connection_points_reference: ["vdu0:data0", "vdu0:data1", "vnf0:data0"]
@@ -153,8 +153,8 @@ vnf:
           leaf_requirement: "10Gbps" # Used only for E-tree
           qos: "" # optional
           test_access: "passive" 
-		  net_segment: "192.168.1.0/24" #a-priori allocation by the system during approval of the VNFD.
-		  dhcp: "TRUE"
+          net_segment: "192.168.1.0/24" #a-priori allocation by the system during approval of the VNFD.
+          dhcp: "TRUE"
         - vl_id: "store"
           connectivity_type: "E-Line"
           connection_points_reference: ["vdu0:store0"]
@@ -162,8 +162,8 @@ vnf:
           leaf_requirement: "10Gbps" # Used only for E-tree
           qos: "" # optional
           test_access: "none" # optional
-		  net_segment: "192.168.1.0/24" #a-priori allocation by the system during approval of the VNFD.
-		  dhcp: "TRUE"
+          net_segment: "192.168.1.0/24" #a-priori allocation by the system during approval of the VNFD.
+          dhcp: "TRUE"
 
       monitoring_parameters:
         generic: ["cpu", "memory_total", "memory_free", "memory_used", "disk_io", "disk_free", "bps in", "bps out", "packets_in", "packets_out", "errors", "dropped"]
@@ -177,38 +177,38 @@ vnf:
 
   # VNF Flavour section + SLS
   deployment_flavours:
-  - flavour_id: "vnfd0:flavour0"
-    flavour_key: "flows_fw_100K" # this flavour will support 100K
-    constraint: "specific HW constrain" #TBD
-    constituent_vdu:
-      vdu_reference: "vdu0"
-      number_of_instances: "1"
-      constituent_vnfc: "vd0:vnfc0"
+    - flavour_id: "vnfd0:flavour0"
+      flavour_key: "flows_fw_100K" # this flavour will support 100K
+      constraint: "specific HW constrain" #TBD
+      constituent_vdu:
+        vdu_reference: "vdu0"
+        number_of_instances: 1
+        constituent_vnfc: "vdu0:vnfc0"
 
-    assurance_parameters:
-    - param_id: "memory-consumption"
-      value: 1
-      unit: "GB"
-      formula: "memory-consumption LT 1"
-      violation:
-        - breaches_count: 2
-          interval: 30
-        - breaches_count: 5
-          interval: 120
-      penalty:
-        type: "discount"
-        value: 5
-        unit: "percentage"
-        validity: "P1D"
-    - param_id: "CPU-utilization"
-      value: 85
-      unit: "percentage"
-      formula: "CPU-utilization LT 0.85"
-      violation:
-        - breaches_count: 2
-          interval: 30
-      penalty:
-        type: "discount"
-        value: 5
-        unit: "percentage"
-        validity: "P1D"
+      assurance_parameters:
+        - param_id: "memory-consumption"
+          value: 1
+          unit: "GB"
+          formula: "memory-consumption LT 1"
+          violation:
+            - breaches_count: 2
+              interval: 30
+            - breaches_count: 5
+              interval: 120
+          penalty:
+            type: "discount"
+            value: 5
+            unit: "percentage"
+            validity: "P1D"
+        - param_id: "CPU-utilization"
+          value: 85
+          unit: "percentage"
+          formula: "CPU-utilization LT 0.85"
+          violation:
+            - breaches_count: 2
+              interval: 30
+          penalty:
+            type: "discount"
+            value: 5
+            unit: "percentage"
+            validity: "P1D"

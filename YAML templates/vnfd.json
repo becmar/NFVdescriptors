@@ -5,7 +5,7 @@
     "provider": "NCSRD", 
     "provider_id": 23, 
     "description": "The function identifies, classifies and forwards network traffic according to policies", 
-    "descriptor_version\"": "0.1", 
+    "descriptor_version": "0.1", 
     "version": "0.22", 
     "manifest_file_md5": "fa8773350c4c236268f0bd7807c8a3b2", 
     "type": "TC", 
@@ -23,23 +23,21 @@
       }
     }, 
     "vnf_lifecycle_events": {
-      "events": {
-        "start": [
-          {
-            "vdu_id": "vdu0", 
-            "vdu_event": "start"
-          }
-        ], 
-        "stop": [
-          {
-            "vdu_id": "vdu0", 
-            "vdu_event": "stop"
-          }
-        ], 
-        "restart": [], 
-        "scale-in": [], 
-        "scale-out": []
-      }
+      "start": [
+        {
+          "vdu_id": "vdu0", 
+          "vdu_event": "start"
+        }
+      ], 
+      "stop": [
+        {
+          "vdu_id": "vdu0", 
+          "vdu_event": "stop"
+        }
+      ], 
+      "restart": [], 
+      "scale-in": [], 
+      "scale-out": []
     }, 
     "vdu": [
       {
@@ -121,19 +119,19 @@
           "networking": [
             {
               "connection_point_id": "mngt0", 
-              "vitual_link_reference": "TO COMPLETE", 
+              "vitual_link_reference": "mngt", 
               "type": "", 
               "bandwidth": null
             }, 
             {
               "connection_point_id": "data0", 
-              "vitual_link_reference": "TO COMPLETE", 
+              "vitual_link_reference": "data", 
               "type": "", 
               "bandwidth": null
             }, 
             {
               "connection_point_id": "data1", 
-              "vitual_link_reference": "TO COMPLETE", 
+              "vitual_link_reference": "data", 
               "type": "", 
               "bandwidth": null
             }, 
@@ -150,38 +148,43 @@
             "vl_id": "mngt", 
             "connectivity_type": "E-Line", 
             "connection_points_reference": [
-              "mngt0", 
-              "TO BE COMPLETED"
+              "vdu0:mngt0", 
+              "vnf0:mngt0"
             ], 
             "root_requirement": "10Gbps", 
             "leaf_requirement": "10Gbps", 
             "qos": "", 
-            "test_access": "none"
+            "test_access": "active", 
+            "net_segment": "192.168.1.0/24", 
+            "dhcp": "TRUE"
           }, 
           {
             "vl_id": "data", 
             "connectivity_type": "E-LAN", 
             "connection_points_reference": [
-              "data0", 
-              "data1", 
-              "TO BE COMPLETED"
+              "vdu0:data0", 
+              "vdu0:data1", 
+              "vnf0:data0"
             ], 
             "root_requirement": "10Gbps", 
             "leaf_requirement": "10Gbps", 
             "qos": "", 
-            "test_access": "none"
+            "test_access": "passive", 
+            "net_segment": "192.168.1.0/24", 
+            "dhcp": "TRUE"
           }, 
           {
             "vl_id": "store", 
             "connectivity_type": "E-Line", 
             "connection_points_reference": [
-              "store0", 
-              "TO BE COMPLETED"
+              "vdu0:store0"
             ], 
             "root_requirement": "10Gbps", 
             "leaf_requirement": "10Gbps", 
             "qos": "", 
-            "test_access": "none"
+            "test_access": "none", 
+            "net_segment": "192.168.1.0/24", 
+            "dhcp": "TRUE"
           }
         ], 
         "monitoring_parameters": {
@@ -222,8 +225,8 @@
         "constraint": "specific HW constrain", 
         "constituent_vdu": {
           "vdu_reference": "vdu0", 
-          "number_of_instances": "1", 
-          "constituent_vnfc": "vd0:vnfc0"
+          "number_of_instances": 1, 
+          "constituent_vnfc": "vdu0:vnfc0"
         }, 
         "assurance_parameters": [
           {
