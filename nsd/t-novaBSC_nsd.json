@@ -1,29 +1,30 @@
 {
-	"nsd": {
-		"id": "network service id",
-		"name": "name",
-		"vendor": "vendor of the NS",
-		"version": "version of the NSD",
+    "nsd": {
+        "id": "network service id",
+	"name": "name",
+	"vendor": "vendor of the NS",
+	"version": "version of the NSD",
+        "published": true,
         "manifest_file_md5": "fa8773350c4c236268f0bd7807c8a3b2",
-		"vnfds": [
-			{
-				"vnfd": "NFStore-generated IDs",
-                                "flavour_key": "gold"
-			},
-			{
-				"vnfd": "reference of a vnfd of this ns",
-                                "flavour_key": "flavour in the VNDF"
-			}
-		],
-		"vnffgds": [
-			{
-				"vnffgd": "reference of a vnffgd of this ns"
-			},
-			{
-				"vnffgd": "reference of a vnffgd of this ns"
-			}
-		],
-		"lifecycle_event": {
+	"vnfds": [
+	    {
+		"vnfd": "NFStore-generated IDs",
+                "flavour_key": "gold"
+	    },
+	    {
+                "vnfd": "reference of a vnfd of this ns",
+                "flavour_key": "flavour in the VNDF"
+	    }
+        ],
+	"vnffgds": [
+	    {
+	        "vnffgd": "reference of a vnffgd of this ns"
+	    },
+	    {
+		"vnffgd": "reference of a vnffgd of this ns"
+	    }
+	],
+	"lifecycle_event": {
             "start": {
                 "vnf_id": "52439e7c-c85c-4bae-88c4-8ee8da4c5485",
                 "vnf_event": "start"
@@ -36,52 +37,52 @@
                 "vnf_id": "52439e7c-c85c-4bae-88c4-8ee8da4c5485",
                 "vnf_event": "scale_out"
             }
-		},	
-		"vnf_dependency": [
-			{
-				"source_vnf": "sourcevnfid",
-				"target_vnf": "targetvnfid"
-			},
-			{
-				"source_vnf": "sourcevnfid",
-				"target_vnf": "targetvnfid"
-			}
-		],
-		"monitoring_parameters": [
-			{
-				"monitoring_parameter": "availability"
-			},
-			{
-				"monitoring_parameter": "ram-consumption"
-			}
-		],
-         "vlds": [
+	},	
+	"vnf_dependency": [
+	    {
+		"source_vnf": "sourcevnfid",
+		"target_vnf": "targetvnfid"
+	    },
+	    {
+		"source_vnf": "sourcevnfid",
+		"target_vnf": "targetvnfid"
+	    }
+	],
+	"monitoring_parameters": [
+	    {
+		"monitoring_parameter": "availability"
+	    },
+	    {
+		"monitoring_parameter": "ram-consumption"
+	    }
+	],
+        "vlds": [
             "to be completed"
         ], 
-		"service_deployment_flavour": [
-			{
-				"flavour_id": "nsflavourid1",
-				"flavour_key": "callspersecond5k",
-				"constituent_vnf": {
-					"vnf_reference": "vnfid for this deployment",
-					"vnf_flavour_id_reference": "reference of vnfd:deployment_flavour:id",
-					"redundancy_model": "active or standby",
-					"affinity": "placement policy between instances",
-					"capability": "eg instance capacity, 50% * NS capacity",
-					"number_of_instances": "number of vnf instances required"
-				},
-				"assurance_parameters": [
-		            {
-		            	"name": "availability",
-		            	"value": "GT(0.95)",
+	"service_deployment_flavour": [
+	    {
+		"id": "nsflavourid1",
+		"flavour_key": "callspersecond5k",
+		"constituent_vnf": {
+		    "vnf_reference": "vnfid for this deployment",
+		    "vnf_flavour_id_reference": "reference of vnfd:deployment_flavour:id",
+		    "redundancy_model": "active or standby",
+		    "affinity": "placement policy between instances",
+		    "capability": "eg instance capacity, 50% * NS capacity",
+		    "number_of_instances": "number of vnf instances required"
+		},
+		"assurance_parameters": [
+		    {
+		        "name": "availability",
+		        "value": "GT(0.95)",
                         "unit": "percentage",
-		            	"formula": "min(vnfs[1].availability, vnfs[2].availability)",
-		            	"violation": [
-		            	    {
-		            			"breaches_count": "5",
-		            			"interval": "120"
-		            		}
-		                ],
+		        "formula": "min(vnfs[1].availability, vnfs[2].availability)",
+		        "violation": [
+		            {
+		            	"breaches_count": "5",
+		            	"interval": "120"
+		            }
+		        ],
                         "penalty": {
                             "type" : "discount",
                             "value": 5,
@@ -90,145 +91,145 @@
                         }
                     },
                     {
-		            	"name": "ram-consumption",
-		            	"value": "LT(500)",
+		        "name": "ram-consumption",
+		        "value": "LT(500)",
                         "unit": "MB",
-		            	"formula": "add(vnfs[1].memory-consumption, vnfs[2].memory-consumption, 100)",
-		            	"violation": [
-		            		{
-		            			"breaches_count": "5",
-		            			"interval": "120"
-		            		},
-		            		{
-		            			"breaches_count": "10",
-		            			"interval": "300"
-		            		}
-		            	],
-                        "penalty": {
-                            "type" : "discount",
-                            "value": 5,
-                            "unit": "%",
-                            "validity": "P1D"
-                        }
+		        "formula": "add(vnfs[1].memory-consumption, vnfs[2].memory-consumption, 100)",
+		        "violation": [
+		            {
+		            	"breaches_count": "5",
+		            	"interval": "120"
+		            },
+		            {
+		            	"breaches_count": "10",
+		            	"interval": "300"
 		            }
 		        ],
-		        "billing": {
-			        "type": "PAYG",
-			        "period": "P1D",
-			        "price":{ 
-				        "currency:": "EUR",
-    				    "setupCost": "0",
-	    			    "price_per_period": "2"
-		    	    }
-		        }
-			},
-			{
-				"flavour_id": "nsflavourid2",
-				"flavour_key": "callspersecond10k",
-				"constituent_vnf": {
-					"vnf_reference": "vnfid for this deployment",
-					"vnf_flavour_id_reference": "reference of vnfd:deployment_flavour:id",
-					"redundancy_model": "active or standby",
-					"affinity": "placement policy between instances",
-					"capability": "eg instance capacity, 50% * NS capacity",
-					"number_of_instances": "number of vnf instances required"
-				},
-				"assurance_parameters": [
-		            {
-		            	"name": "availability",
-		            	"value": "GT(0.90)",
-                        "unit": "percentage",
-		            	"formula": "min(vnfs[1].availability, vnfs[2].availability)",
-		            	"violation": [
-		            		{
-		            			"breaches_count": "5",
-		            			"interval": "120"
-		            		}
-		            	],
                         "penalty": {
                             "type" : "discount",
                             "value": 5,
                             "unit": "%",
                             "validity": "P1D"
                         }
-		            }, 
-		            {
-		            	"name": "ram-consumption",
-		            	"value": "LT(800)",
-                        "unit": "percentage",
-		            	"formula": "add(vnfs[1].memory-consumption, vnfs[2].memory-consumption, 100)",
-		            	"violation": [
-		            		{
-		            			"breaches_count": "5",
-		            			"interval": "120"
-		            		},
-		            		{
-		            			"breaches_count": "10",
-		            			"interval": "300"
-		            		}
-		            	],
-                        "penalty": {
-                            "type" : "discount",
-                            "value": 5,
-                            "unit": "%",
-                            "validity": "P1D"
-                        }
-		            }
-		        ],
-		        "billing": {
-			        "type": "PAYG",
-			        "period": "P1D",
-			        "price":{ 
-				        "currency:": "EUR",
-    				    "setupCost": "0",
-	    			    "price_per_period": "3"
-		    	    }
-		        }
-			}
+		    }
 		],
-		"auto_scale_policy": [
-			{
-				"criteria_parameter": {
-					"type": "monitoring parameter name",
-					"threshold": "threshold",
+		"billing": {
+		    "type": "PAYG",
+		    "period": "P1D",
+		    "price":{ 
+			"currency:": "EUR",
+    			"setupCost": "0",
+	    		"price_per_period": "2"
+		    }
+		}
+	    },
+	    {
+	        "flavour_id": "nsflavourid2",
+		"flavour_key": "callspersecond10k",
+		"constituent_vnf": {
+    		    "vnf_reference": "vnfid for this deployment",
+		    "vnf_flavour_id_reference": "reference of vnfd:deployment_flavour:id",
+		    "redundancy_model": "active or standby",
+    		    "affinity": "placement policy between instances",
+		    "capability": "eg instance capacity, 50% * NS capacity",
+		    "number_of_instances": "number of vnf instances required"
+		},
+		"assurance_parameters": [
+		    {
+		        "name": "availability",
+		        "value": "GT(0.90)",
+                        "unit": "percentage",
+		        "formula": "min(vnfs[1].availability, vnfs[2].availability)",
+		        "violation": [
+		            {
+		            	"breaches_count": "5",
+		            	"interval": "120"
+		            }
+		        ],
+                        "penalty": {
+                            "type" : "discount",
+                            "value": 5,
+                            "unit": "%",
+                            "validity": "P1D"
+                        }
+		    }, 
+		    {
+		        "name": "ram-consumption",
+		        "value": "LT(800)",
+                        "unit": "percentage",
+		        "formula": "add(vnfs[1].memory-consumption, vnfs[2].memory-consumption, 100)",
+		        "violation": [
+		            {
+		                "breaches_count": "5",
+		            	"interval": "120"
+		            },
+		            {
+		            	"breaches_count": "10",
+		            	"interval": "300"
+		            }
+		        ],
+                        "penalty": {
+                            "type" : "discount",
+                            "value": 5,
+                            "unit": "%",
+                            "validity": "P1D"
+                        }
+		    }
+		],
+		"billing": {
+		    "type": "PAYG",
+		    "period": "P1D",
+		    "price":{ 
+			"currency:": "EUR",
+    			"setupCost": "0",
+	    		"price_per_period": "3"
+		    }
+		}
+	    }
+	],
+	"auto_scale_policy": [
+	    {
+		"criteria_parameter": {
+		    "parameter": "monitoring parameter name",
+		    "threshold": "threshold",
                     "unit": "value unit"
-				},
-				"action_type": "scale-out to different flavour ID"
-			},
-			{
-				"criteria_parameter": {
-					"monitoring_parameter": "end-to-end-bandwidth",
-					"threshold": 100,
+		},
+		"action_type": "scale-out to different flavour ID"
+	    },
+	    {
+		"criteria_parameter": {
+		    "parameter": "end-to-end-bandwidth",
+		    "threshold": 100,
                     "unit": "Mbps"
-				},
-				"action_type": "upgrade"
-			}
-		],
-		"connection_points": [
-			{
+	        },
+	        "action_type": "upgrade"
+	    }
+	],
+	"connection_points": [
+            {
                 "interface": "control plane",
-				"id": "connectionpointid1",
-				"type": "virtual/physical port/nic or vpn endpoint ip"
-			},
-			{
+		"id": "connectionpointid1",
+		"type": "virtual/physical port/nic or vpn endpoint ip"
+	    },
+	    {
                 "interface": "data plane",
-				"id": "data0",
-				"type": "bridge"
-			},
-			{
+		"id": "data0",
+		"type": "bridge"
+	    },
+	    {
                 "interface": "storage",
-				"id": "stor0",
-				"type": "bridge"
-			}
-		],
-		"pnfds": [
-			{
-				"pnfd": "reference of a pnfd of this ns"
-			},
-			{
-				"pnfd": "reference of a pnfd of this ns"
-			}
-		],
-		"nsd_security": "MD5 hash of the NSD"
-	}
+		"id": "stor0",
+		"type": "bridge"
+	    }
+	],
+	"pnfds": [
+	    {
+		"pnfd": "reference of a pnfd of this ns"
+	    },
+	    {
+		"pnfd": "reference of a pnfd of this ns"
+	    }
+	],
+	"nsd_security": "MD5 hash of the NSD"
+    }
 }
