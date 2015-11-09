@@ -8,12 +8,10 @@
         "manifest_file_md5": "fa8773350c4c236268f0bd7807c8a3b2",
 	"vnfds": [
 	    {
-		"vnfd": "NFStore-generated IDs",
-                "flavour_key": "gold"
+		"vnfd": "NFStore-generated IDs"
 	    },
 	    {
-                "vnfd": "reference of a vnfd of this ns",
-                "flavour_key": "flavour in the VNDF"
+                "vnfd": "reference of a vnfd of this ns"
 	    }
         ],
 	"vnffgds": [
