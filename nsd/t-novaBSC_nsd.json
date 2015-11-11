@@ -57,24 +57,26 @@
         "vlds": [
             "to be completed"
         ], 
-	"service_deployment_flavour": [
+	"sla": [
 	    {
 		"id": "nsflavourid1",
 		"flavour_key": "callspersecond5k",
-		"constituent_vnf": {
-		    "vnf_reference": "vnfid for this deployment",
-		    "vnf_flavour_id_reference": "reference of vnfd:deployment_flavour:id",
-		    "redundancy_model": "active or standby",
-		    "affinity": "placement policy between instances",
-		    "capability": "eg instance capacity, 50% * NS capacity",
-		    "number_of_instances": "number of vnf instances required"
-		},
+		"constituent_vnf": [
+                    {
+		        "vnf_reference": "vnfid for this deployment",
+                        "vnf_flavour_id_reference": "reference of vnfd:deployment_flavour:id",
+		        "redundancy_model": "active or standby",
+		        "affinity": "placement policy between instances",
+		        "capability": "eg instance capacity, 50% * NS capacity",
+		        "number_of_instances": "number of vnf instances required --> Disposable??"
+                    }
+		],
 		"assurance_parameters": [
 		    {
 		        "name": "availability",
 		        "value": "GT(0.95)",
                         "unit": "percentage",
-		        "formula": "min(vnfs[1].availability, vnfs[2].availability)",
+		        "formula": "min(vnfs[1].availability, vnfs[2].availability) --> which VNF array take?",
 		        "violation": [
 		            {
 		            	"breaches_count": "5",
