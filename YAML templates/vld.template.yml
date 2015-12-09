@@ -25,7 +25,11 @@ vld:
 		-	vld_id: "vld1"
 		    root_requirements: "10Gbps"
 		    leaf_requirements: "10Gbps"
-		    qos: {"none":"not used"}
+		    qos: {
+				average: ""
+				peak: ""
+				burst: ""
+				}
 		    test_access: "none"
 		    connections: ["vnf0:data0","data0"] #connection points references
 		    connectivity_type: E-Line

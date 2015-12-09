@@ -82,7 +82,10 @@ vnf:
           version: "2.0"
           overlay_tunnel: "GRE"
 
-      networking_resources: #(TBD)
+      networking_resources: 
+		  average: "7Mbps"
+		  peak: "10Mbps"
+		  burst: "100KBytes"
 
       #VDU Lifecycle enents
       vdu_lifecycle_events:
@@ -120,20 +123,20 @@ vnf:
           # Start of T-NOVA networking section
           - connection_point_id: "mngt0" # for monitoring and management purposes
             vitual_link_reference: "mngt"
-            type: "" # The type of interface i.e floating_ip, vnic, tap "TO COMPLETE"
-            bandwidth: # informative
+            type: "floating" # The type of interface i.e floating_ip, vnic, tap "TO COMPLETE"
+            bandwidth: "100Mbps"
           - connection_point_id: "data0" # datapath interface
             vitual_link_reference: "data"
-            type: "" # The type of interface i.e floating_ip, vnic, tap "TO COMPLETE"
-            bandwidth: # informative
+            type: "vnic" # The type of interface i.e floating_ip, vnic, tap "TO COMPLETE"
+            bandwidth: "100Mbps"
           - connection_point_id: "data1"
             vitual_link_reference: "data"
-            type: "" # The type of interface i.e floating_ip, vnic, tap "TO COMPLETE"
-            bandwidth: # informative
+            type: "vnic" # The type of interface i.e floating_ip, vnic, tap "TO COMPLETE"
+            bandwidth: "100Mbps"
           - connection_point_id: "store0"
             vitual_link_reference: "TO COMPLETE"
             type: "" # The type of interface i.e floating_ip, vnic, tap "TO COMPLETE"
-            bandwidth: # informative
+            bandwidth: "100Mbps
 
       vlink:
         # T-NOVA VL Section : relative to resources:networks HEAT template, subnets and dns information should be filled from the Orchestrator therefore are not put here. 

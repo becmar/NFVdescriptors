@@ -14,11 +14,17 @@ vnffgd:
 	
 	-	vnffg_id: "vnffg0"
 	    number_of_endpoints: 2 #external endpoints number
-	    number_of_virtual_links: 3 
-	    depedent_virtual_links: {"vld1","vld2"}
-	    network_forwarding_path: #miising 
+	    number_of_virtual_links: 2 
+	    depedent_virtual_links: {"vld1","vld2","vld3"}
+	    -	network_forwarding_path: #
+	 	nfp_id: "nfp0"
+		graph: {"vld1","vld2"}
+		nfp_id: "nfp1"
+		graph: {"vld1","vld3"}
 	    connection_points: {"data0","data1"}
 	    constituent_vnfs: {"vnfd0:flavour0"}
-	
+
+
+
 	
 	
