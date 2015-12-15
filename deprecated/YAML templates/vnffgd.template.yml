@@ -1,0 +1,30 @@
+# YAML VNFFGD transscripted from ETSI VNFFGD - T-NOVA VNFFGD 
+# Version: 2.0.2
+# Date: 4/10/2015 
+# Copyright: T-NOVA Consortium
+# Info: Template for single VNFC VNF 
+# Changelog: Initial version
+
+vnffgd:
+	id: "418420e3-e2a8-4338-bc8c-be685548bad2"
+	vendor: "NCSRD"
+	version: "1.0"
+	ns_version: "1.0.0" #version of the service this vnffgd is describing
+	manifest_file_md5: "fa8773350c4c236268f0bd7807c8a3b2"
+	
+	-	vnffg_id: "vnffg0"
+	    number_of_endpoints: 2 #external endpoints number
+	    number_of_virtual_links: 2 
+	    depedent_virtual_links: {"vld1","vld2","vld3"}
+	    -	network_forwarding_path: #
+	 	nfp_id: "nfp0"
+		graph: {"vld1","vld2"}
+		nfp_id: "nfp1"
+		graph: {"vld1","vld3"}
+	    connection_points: {"data0","data1"}
+	    constituent_vnfs: {"vnfd0:flavour0"}
+
+
+
+	
+	
