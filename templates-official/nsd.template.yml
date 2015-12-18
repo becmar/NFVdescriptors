@@ -53,7 +53,7 @@ nsd:
   ######### Insert VLD here ######### 
   vld:
     id: "52439e7c-c85c-4bae-88c4-8ee8da4c5485"
-    vendor:"T-NOVA"
+    vendor: "T-NOVA"
     descriptor_version: "1.0"
     manifest_file_md5: "fa8773350c4c236268f0bd7807c8a3b2"
   
@@ -61,65 +61,67 @@ nsd:
   
     vitual_links: # external Virtual Links
       - vld_id: "vld0"
-      root_requirements: "10Gbps"
-      leaf_requirements: "10Gbps"
-      qos: {"none":"not used"}
-      test_access: "none"
-      connections: ["vnf0:mngt0","mngt0"] #connection points references
-      connectivity_type: E-Line 
+        root_requirements: "10Gbps"
+        leaf_requirements: "10Gbps"
+        qos: {"none":"not used"}
+        test_access: "none"
+        connections: ["vnf0:mngt0","mngt0"] #connection points references
+        connectivity_type: E-Line
     
       - vld_id: "vld1"
-      root_requirements: "10Gbps"
-      leaf_requirements: "10Gbps"
-      qos: {
-      average: ""
-      peak: ""
-      burst: ""}
+        root_requirements: "10Gbps"
+        leaf_requirements: "10Gbps"
+        qos:
+         - average: ""
+           peak: ""
+           burst: ""
         
       test_access: "none"
       connections: ["vnf0:data0","data0"] #connection points references
       connectivity_type: E-Line
     
       - vld_id: "vld2"
-      root_requirements: "10Gbps"
-      leaf_requirements: "10Gbps"
-      qos: {"none":"not used"}
-      test_access: "none"
-      connections: ["vnf0:data1","data1"] #connection points references
-      connectivity_type: E-Line
+        root_requirements: "10Gbps"
+        leaf_requirements: "10Gbps"
+        qos: {"none":"not used"}
+        test_access: "none"
+        connections: ["vnf0:data1","data1"] #connection points references
+        connectivity_type: E-Line
 
 
-    service_deployment_flavour:
+    sla:
       - flavour_id: "flavour0"
-      flavour_key: "flows100K"
-      constituent_vnf:
-        vnf_reference: "2439e7c-c85c-4bae-88c4-8ee8da4c5485"
-        vnf_flavour_id_reference: "vnfd0:flavour0"
-        redudancy_model: "active" #active or standby - optional
-        affinity: "placement policy between instances" #optional to check about same CPU/adjacent controlers etc
-        number_of_instances: 1
-      assurance_parameters: 
-        #the values are calculated based on the values of the VNF selected flavour
-        name: "availability"
-        value: "GT(min(vnfs[1].availability, vnfs[2].availability))"
-        formula: "min(vnfs[1].availability, vnfs[2].availability)"
-        violation:
-        - breaches_count: "5"
-          interval: "120"
-          penalty: "not included, as they're not relevant to the Orchestrator"
-        - breaches_count: "10"
-          interval: "300"
-          penalty: "not included, as they're not relevant to the Orchestrator"
+        flavor_key: "Basic"
+        constituent_vnf:
+          vnf_reference: "2439e7c-c85c-4bae-88c4-8ee8da4c5485"
+          vnf_flavour_id_reference: "vnfd0:flavour0"
+          redudancy_model: "active" #active or standby - optional
+          affinity: "placement policy between instances" #optional to check about same CPU/adjacent controlers etc
+          number_of_instances: 1
+        - assurance_parameters:
+          - formula: MIN(VNF:623.availability)
+            id: availability
+            name: availability
+            penalty:
+              type: Discount
+              unit: '%'
+              validity: P1D
+              value: 10
+            unit: '%'
+            value: LT(99)
+            violations:
+            - breaches_count: 2
+              interval: 360
 
- #additional flavours here ...
-  t_nova_ns_deployment_flavour: # to be checked in the next meeting in Cyprus
-    - tnova_flavour_id: "tnova_flavour0"
-      tnova_flavour_name: "gold"
-      service_deplouyment_flavour_reference: "flavour0"
-      billing:
-        type: "PAYG" #billing model
-        period: "P1W" #billing period
-        price: {"currency":"EURO","setupcost":"200","price_per_period":"2000"}
+#additional flavours here ...
+#  t_nova_ns_deployment_flavour: # to be checked in the next meeting in Cyprus
+#    - tnova_flavour_id: "tnova_flavour0"
+#      tnova_flavour_name: "gold"
+#      service_deplouyment_flavour_reference: "flavour0"
+#      billing:
+#        type: "PAYG" #billing model
+#        period: "P1W" #billing period
+#        price: {"currency":"EURO","setupcost":"200","price_per_period":"2000"}
 
   auto_scale_policy:
     criteria: [{"end-to-end bandwidth":"10Mbps"},{"test":"test"}]
