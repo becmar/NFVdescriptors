@@ -1,0 +1,102 @@
+heat_template_version: 2014-10-16
+
+description: Template to deploy one instance with a private network developed on the spot
+
+parameters:
+  availability_zone:
+    type: string
+    description: The Availability Zone to launch the instance.
+    default: nova:cnode3
+  flavor:
+    type: string
+    label: flavor
+    description: flavor to be used
+    default: PXaaS
+  image:
+    type: string
+    label: Image name or ID
+    description: Image to be used for compute instance
+    default: PXaaS_2
+  public_net:
+    type: string
+    description: Id of the public network for the compute server
+    default: 121ad8e8-a656-4baf-a306-9b88db8de2a8
+  sub_public_net:
+    type: string
+    description: Id of the public subnet
+    default: 6f559284-4f19-4d0d-a9a3-1af55a821ab0
+  router:
+    type: string
+    description: Id of the router
+    default: b4588ab9-bad6-4860-b277-f2a56e99b37e 
+
+resources: #in this section, the resources are defined
+  mngt_net: #creating the MNGT network
+    type: OS::Neutron::Net
+    properties:
+      name: mngt
+
+  monitoring_net:
+    type: OS::Neutron::Net
+    properties:
+      name: monitoring
+
+  data_net:
+    type: OS::Neutron::Net
+    properties:
+      name: data
+
+  mngt_subnet: #creating the subnets
+    type: OS::Neutron::Subnet
+    properties:
+      network_id: { get_resource: mngt_net }
+      cidr: 10.10.110.0/24
+      dns_nameservers:
+        - 8.8.8.8
+
+  monitoring_subnet:
+    type: OS::Neutron::Subnet
+    properties:
+      network_id: { get_resource: monitoring_net }
+      cidr: 10.10.111.0/24
+      dns_nameservers:
+        - 8.8.8.8
+
+  data_subnet:
+    type: OS::Neutron::Subnet
+    properties:
+      network_id: { get_resource: data_net }
+      cidr: 10.10.112.0/24
+      dns_nameservers:
+        - 8.8.8.8
+
+  port1:
+    type: OS::Neutron::Port
+    properties:
+      network_id: { get_resource: data_net }
+      fixed_ips:
+       - subnet_id: { get_resource: data_subnet }
+
+  floating_ip1:
+    type: OS::Neutron::FloatingIP
+    properties:
+      floating_network_id: { get_param: public_net }
+      port_id: { get_resource: port1 }
+
+  router-interface: #creating the router interface, on an existing router
+    type: OS::Neutron::RouterInterface
+    properties:
+      router_id: {get_param: router}  #this is the id of the router used
+      subnet: { get_resource: data_subnet } #the subnet the interface is created for
+
+  instance1:
+    type: OS::Nova::Server
+    properties:
+      image: { get_param: image } #getting the image defined by user through parameters or the default if not 
+      name: cirros
+      availability_zone: { get_param: availability_zone }
+      flavor: { get_param: flavor } #getting the flavor
+      networks: #defining the networks attached to 
+        - network: { get_resource: mngt_net }
+        - network: { get_resource: monitoring_net }
+        - port: { get_resource: port1 }
