@@ -167,38 +167,8 @@ vnf:
           dhcp: "TRUE"
 
       monitoring_parameters:
-        generic:
-        - desc: Availability
-          metric: availability
-          unit: '%'
-        - desc: CPU Usage
-          metric: cpu_usage
-          unit: '%'
-        - desc: Memory Usage
-          metric: memory_usage
-          unit: '%'
-        - desc: Memory Used
-          metric: memory_used
-          unit: MB
-        - desc: Free Memory
-          metric: memory_free
-          unit: MB
-        - desc: Disk IO
-          metric: disk_io
-          unit: MB/sec
-        - desc: Available Disk Space
-          metric: disk_free
-          unit: GB
-        - desc: Incoming Bandwidth
-          metric: bps_in
-          unit: Mbps
-        - desc: Outgoing Bandwidth
-          metric: bps_out
-          unit: Mbps
-        specific:
-        - desc: Packets Dropped
-          metric: packets_dropped
-          unit: packets
+        generic: ["cpu", "memory_total", "memory_free", "memory_used", "disk_io", "disk_free", "bps in", "bps out", "packets_in", "packets_out", "errors", "dropped"]
+        specific: ["number_of_flows", "number_of_flows_classified", "dropped_packets"] # example functionality is the vTC
 
       auto_scale_policy:
         - policy_name: "policy1"
