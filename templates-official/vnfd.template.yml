@@ -102,7 +102,7 @@ vnf:
           version: "2.0"
           overlay_tunnel: "GRE"
 
-      networking_resources:
+      networking_resources: 
 		  average: "7Mbps"
 		  peak: "10Mbps"
 		  burst: "100KBytes"
@@ -137,7 +137,7 @@ vnf:
             bandwidth: "100Mbps
 
       vlink:
-        # T-NOVA VL Section : relative to resources:networks HEAT template, subnets and dns information should be filled from the Orchestrator therefore are not put here.
+        # T-NOVA VL Section : relative to resources:networks HEAT template, subnets and dns information should be filled from the Orchestrator therefore are not put here. 
         - vl_id: "mngt"
           connectivity_type: "E-Line"
           connection_points_reference: ["vdu0:mngt0", "vnf0:mngt0"]
@@ -153,7 +153,7 @@ vnf:
           root_requirement: "10Gbps"
           leaf_requirement: "10Gbps" # Used only for E-tree
           qos: "" # optional
-          test_access: "passive"
+          test_access: "passive" 
           net_segment: "192.168.1.0/24" #a-priori allocation by the system during approval of the VNFD.
           dhcp: "TRUE"
         - vl_id: "store"
