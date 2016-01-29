@@ -1,0 +1,349 @@
+{
+  "provider_id": 4,
+  "vdu": [
+    {
+      "resource_requirements": {
+        "network_interface_bandwidth_unit": "",
+        "hypervisor_parameters": {
+          "version": "10002|12001|2.6.32-358.el6.x86_64",
+          "type": "QEMU-KVM"
+        },
+        "memory_unit": "GB",
+        "network_interface_card_capabilities": {
+          "SR-IOV": true,
+          "mirroring": false
+        },
+        "storage": {
+          "size_unit": "GB",
+          "persistence": false,
+          "size": 8
+        },
+        "network_interface_bandwidth": "",
+        "platform_pcie_parameters": {
+          "SR-IOV": true,
+          "device_pass_through": true
+        },
+        "vcpus": 6,
+        "vswitch_capabilities": {
+          "version": "2.0",
+          "type": "ovs",
+          "overlay_tunnel": "GRE"
+        },
+        "data_processing_acceleration_library": "",
+        "memory": 4,
+        "memory_parameters": {
+          "large_pages_required": false,
+          "numa_allocation_policy": ""
+        },
+        "cpu_support_accelerator": "AES-NI"
+      },
+      "alias": "pfsense",
+      "vm_image_format": "raw",
+      "networking_resources": "",
+      "id": "vdu0",
+      "vm_image": "http://83.212.108.105:8080/NFS/files/4-pfsense.img",
+      "connection_points": [
+        {
+          "vlink_ref": "vl0",
+          "id": "cp0"
+        },
+        {
+          "vlink_ref": "vl1",
+          "id": "cp1"
+        },
+        {
+          "vlink_ref": "vl2",
+          "id": "cp2"
+        }
+      ],
+      "monitoring_parameters": [
+        {
+          "metric": "availability",
+          "unit": "%",
+          "desc": "Availability"
+        },
+        {
+          "metric": "cpu_usage",
+          "unit": "%",
+          "desc": "CPU Usage"
+        },
+        {
+          "metric": "memory_usage",
+          "unit": "%",
+          "desc": "Memory Usage"
+        },
+        {
+          "metric": "memory_used",
+          "unit": "MB",
+          "desc": "Memory Used"
+        },
+        {
+          "metric": "memory_free",
+          "unit": "MB",
+          "desc": "Free Memory"
+        },
+        {
+          "metric": "disk_io",
+          "unit": "MB/sec",
+          "desc": "Disk IO"
+        },
+        {
+          "metric": "disk_free",
+          "unit": "GB",
+          "desc": "Available Disk Space"
+        },
+        {
+          "metric": "bps_in",
+          "unit": "Mbps",
+          "desc": "Incoming Bandwidth"
+        },
+        {
+          "metric": "bps_out",
+          "unit": "Mbps",
+          "desc": "Outgoing Bandwidth"
+        }
+      ],
+      "vm_image_md5": "2345094b3b92832abb35162a61f6aa03",
+      "scale_in_out": {
+        "minimum": 1,
+        "maximum": 1
+      }
+    },
+    {
+      "resource_requirements": {
+        "network_interface_bandwidth_unit": "",
+        "hypervisor_parameters": {
+          "version": "10002|12001|2.6.32-358.el6.x86_64",
+          "type": "QEMU-KVM"
+        },
+        "memory_unit": "GB",
+        "network_interface_card_capabilities": {
+          "SR-IOV": true,
+          "mirroring": false
+        },
+        "storage": {
+          "size_unit": "GB",
+          "persistence": true,
+          "size": 250
+        },
+        "network_interface_bandwidth": "",
+        "platform_pcie_parameters": {
+          "SR-IOV": true,
+          "device_pass_through": true
+        },
+        "vcpus": 1,
+        "vswitch_capabilities": {
+          "version": "2.0",
+          "type": "ovs",
+          "overlay_tunnel": "GRE"
+        },
+        "data_processing_acceleration_library": "",
+        "memory": 2,
+        "memory_parameters": {
+          "large_pages_required": false,
+          "numa_allocation_policy": ""
+        },
+        "cpu_support_accelerator": "AES-NI"
+      },
+      "alias": "mysql",
+      "vm_image_format": "raw",
+      "networking_resources": "",
+      "id": "vdu1",
+      "vm_image": "http://83.212.108.105:8080/NFS/files/4-pfsense.img",
+      "connection_points": [
+        {
+          "vlink_ref": "vl0",
+          "id": "cp3"
+        },
+        {
+          "vlink_ref": "vl1",
+          "id": "cp4"
+        }
+      ],
+      "monitoring_parameters": [
+        {
+          "metric": "availability",
+          "unit": "%",
+          "desc": "Availability"
+        },
+        {
+          "metric": "cpu_usage",
+          "unit": "%",
+          "desc": "CPU Usage"
+        },
+        {
+          "metric": "memory_usage",
+          "unit": "%",
+          "desc": "Memory Usage"
+        },
+        {
+          "metric": "memory_used",
+          "unit": "MB",
+          "desc": "Memory Used"
+        },
+        {
+          "metric": "memory_free",
+          "unit": "MB",
+          "desc": "Free Memory"
+        },
+        {
+          "metric": "disk_io",
+          "unit": "MB/sec",
+          "desc": "Disk IO"
+        },
+        {
+          "metric": "disk_free",
+          "unit": "GB",
+          "desc": "Available Disk Space"
+        },
+        {
+          "metric": "bps_in",
+          "unit": "Mbps",
+          "desc": "Incoming Bandwidth"
+        },
+        {
+          "metric": "bps_out",
+          "unit": "Mbps",
+          "desc": "Outgoing Bandwidth"
+        }
+      ],
+      "vm_image_md5": "2345094b3b92832abb35162a61f6aa03",
+      "scale_in_out": {
+        "minimum": 1,
+        "maximum": 1
+      }
+    }
+  ],
+  "name": "Firewall pfsense and mysql",
+  "created_at": "2016-01-29T14:20:36Z",
+  "modified_at": "2016-01-29T14:20:36Z",
+  "vlinks": [
+    {
+      "leaf_requirement": "Unlimeted",
+      "connectivity_type": "E-LAN",
+      "vdu_reference": [
+        "vdu0",
+        "vdu1"
+      ],
+      "external_access": true,
+      "connection_points_reference": [
+        "cp0",
+        "cp3"
+      ],
+      "access": true,
+      "alias": "management",
+      "root_requirement": "Unlimeted",
+      "dhcp": true,
+      "id": "vl0",
+      "qos": ""
+    },
+    {
+      "leaf_requirement": "Unlimeted",
+      "connectivity_type": "E-LAN",
+      "vdu_reference": [
+        "vdu0",
+        "vdu1"
+      ],
+      "external_access": false,
+      "connection_points_reference": [
+        "cp1",
+        "cp4"
+      ],
+      "net_segment": "192.168.50.0/24",
+      "access": false,
+      "alias": "internal",
+      "root_requirement": "Unlimeted",
+      "dhcp": false,
+      "id": "vl1",
+      "qos": ""
+    },
+    {
+      "leaf_requirement": "Unlimeted",
+      "connectivity_type": "E-LINE",
+      "vdu_reference": [
+        "vdu0"
+      ],
+      "external_access": true,
+      "connection_points_reference": [
+        "cp2"
+      ],
+      "access": false,
+      "alias": "data",
+      "root_requirement": "Unlimeted",
+      "dhcp": false,
+      "id": "vl2",
+      "qos": ""
+    }
+  ],
+  "trade": true,
+  "descriptor_version": "1",
+  "deployment_flavours": [
+    {
+      "vdu_reference": [
+        "vdu0",
+        "vdu1"
+      ],
+      "constraint": "",
+      "flavour_key": "gold",
+      "vlink_reference": [
+        "vl0",
+        "vl1",
+        "vl2"
+      ],
+      "id": 0,
+      "assurance_parameters": [
+        {
+          "violation": [
+            {
+              "interval": 360,
+              "breaches_count": 2
+            }
+          ],
+          "value": 8,
+          "penalty": {
+            "type": "Discount",
+            "expression": 10,
+            "validity": "2PD",
+            "unit": "packets"
+          },
+          "formula": "packets_dropped GT 8",
+          "rel_id": "param0",
+          "id": "packets_dropped",
+          "unit": "packets"
+        }
+      ]
+    }
+  ],
+  "version": "1",
+  "vnf_lifecycle_events": [
+    {
+      "authentication_username": "root",
+      "driver": "ssh",
+      "authentication_type": "PubKeyAuthentication",
+      "authentication": "<<SSH KEY>>",
+      "events": {
+        "start": {
+          "command": "service xxx start",
+          "template_file": ".... JSON TEMPLATE ....."
+        },
+        "stop": {},
+        "restart": {}
+      },
+      "flavor_id_ref": "flavor0"
+    }
+  ],
+  "billing_model": {
+    "model": "PAYG",
+    "price": {
+      "min_per_period": 30,
+      "max_per_period": 40,
+      "setup": 20,
+      "unit": "EUR"
+    }
+  },
+  "provider": "TEIC",
+  "release": "T-NOVA",
+  "type": "FW",
+  "id": 38,
+  "description": "Firewall and mysql logs"
+}
