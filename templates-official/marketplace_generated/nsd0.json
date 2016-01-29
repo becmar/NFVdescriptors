@@ -148,7 +148,14 @@
             ]
           }
         ],
-        "billing": {},
+        "billing": {
+          "model": "PAYG",
+          "price": {
+            "price_per_period": 30,
+            "setup": 20,
+            "unit": "EUR"
+          }
+        },
         "constituent_vnf": [
           {
             "number_of_instances": 1,
