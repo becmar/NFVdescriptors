@@ -1,0 +1,213 @@
+{
+  "nsd": {
+    "id": "56aaf637e4b010752d07748c",
+    "name": "Managed Firewall",
+    "vendor": "3",
+    "version": "1",
+    "vnfds": [
+      "32"
+    ],
+    "vnffgd": {
+      "vnffgs": []
+    },
+    "lifecycle_events": {
+      "start": [
+        {
+          "vnf_id": "32",
+          "vnf_event": "stop",
+          "event_rel_id": "rel_le0",
+          "event_id": "le0",
+          "flavor_ref_id": "flavor0"
+        },
+        {
+          "vnf_id": "32",
+          "vnf_event": "stop",
+          "event_rel_id": "rel_le0",
+          "event_id": "le1",
+          "flavor_ref_id": "flavor1"
+        }
+      ],
+      "stop": [],
+      "scale_out": []
+    },
+    "vnf_depedency": [],
+    "monitoring_parameters": [
+      {
+        "desc": "Availability",
+        "metric": "availability",
+        "unit": "%"
+      },
+      {
+        "desc": "End-to-End Bandwidth",
+        "metric": "end-to-end bandwidth",
+        "unit": "Mbps"
+      }
+    ],
+    "vld": {
+      "number_of_endpoints": 0,
+      "vitual_links": [],
+      "virtual_links": [
+        {
+          "vld_id": "vld0",
+          "alias": "managment",
+          "flavor_ref_id": "flavor0",
+          "root_requirements": "Unlimeted",
+          "leaf_requirement": "Unlimeted",
+          "qos": {
+            "average": "",
+            "peak": "",
+            "burst": ""
+          },
+          "connections": [
+            "VNF#32:ext_management"
+          ],
+          "connectivity_type": "E-LAN",
+          "external_access": true,
+          "merge": true
+        },
+        {
+          "vld_id": "vld1",
+          "alias": "data",
+          "flavor_ref_id": "flavor0",
+          "root_requirements": "Unlimeted",
+          "leaf_requirement": "Unlimeted",
+          "qos": {
+            "average": "",
+            "peak": "",
+            "burst": ""
+          },
+          "connections": [
+            "VNF#32:ext_data_in",
+            "VNF#32:ext_data_out"
+          ],
+          "connectivity_type": "E-LINE",
+          "external_access": true,
+          "merge": false
+        },
+        {
+          "vld_id": "vld2",
+          "alias": "management",
+          "flavor_ref_id": "flavor1",
+          "root_requirements": "Unlimeted",
+          "leaf_requirement": "Unlimeted",
+          "qos": {
+            "average": "",
+            "peak": "",
+            "burst": ""
+          },
+          "connections": [
+            "VNF#32:ext_management"
+          ],
+          "connectivity_type": "E-LAN",
+          "external_access": true,
+          "merge": true
+        },
+        {
+          "vld_id": "vld3",
+          "alias": "data",
+          "flavor_ref_id": "flavor1",
+          "root_requirements": "Unlimeted",
+          "leaf_requirement": "Unlimeted",
+          "qos": {
+            "average": "",
+            "peak": "",
+            "burst": ""
+          },
+          "connections": [
+            "VNF#32:ext_data_in",
+            "VNF#32:ext_data_out"
+          ],
+          "connectivity_type": "E-LINE",
+          "external_access": true,
+          "merge": false
+        }
+      ]
+    },
+    "sla": [
+      {
+        "id": "flavor0",
+        "flavor_key": "Basic",
+        "assurance_parameters": [
+          {
+            "formula": "MIN(VNF:32.availability)",
+            "id": "availability",
+            "name": "availability",
+            "penalty": {
+              "type": "Discount",
+              "unit": "%",
+              "validity": "P2D",
+              "value": 10
+            },
+            "unit": "%",
+            "value": "LT(99)",
+            "violations": [
+              {
+                "breaches_count": 2,
+                "interval": 360
+              }
+            ]
+          }
+        ],
+        "billing": {},
+        "constituent_vnf": [
+          {
+            "number_of_instances": 1,
+            "redundancy_model": "Active",
+            "vnf_flavour_id_reference": "gold",
+            "vnf_reference": 32
+          }
+        ]
+      },
+      {
+        "id": "flavor1",
+        "flavor_key": "Diamond",
+        "assurance_parameters": [
+          {
+            "formula": "MIN(VNF:32.availability)",
+            "id": "availability",
+            "name": "availability",
+            "penalty": {
+              "type": "Discount",
+              "unit": "%",
+              "validity": "P2D",
+              "value": 10
+            },
+            "unit": "%",
+            "value": "LT(98)",
+            "violations": [
+              {
+                "breaches_count": 2,
+                "interval": 360
+              }
+            ]
+          }
+        ],
+        "billing": {
+          "model": "PAYG",
+          "price": {
+            "price_per_period": 50,
+            "setup": 20,
+            "unit": "EUR"
+          }
+        },
+        "constituent_vnf": [
+          {
+            "number_of_instances": 1,
+            "redundancy_model": "Active",
+            "vnf_flavour_id_reference": "silver",
+            "vnf_reference": 32
+          }
+        ]
+      }
+    ],
+    "auto_scale_policy": {
+      "criteria": []
+    },
+    "connection_points": [],
+    "vnf_dependency": [],
+    "provider": "T-Nova",
+    "description": "Managed Firewall Description",
+    "provider_id": "3",
+    "descriptor_version": "1"
+  }
+}
