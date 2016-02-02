@@ -1,0 +1,61 @@
+heat_template_version: 2014-10-16
+
+description: Template to deploy one instance with a shared management and data networks and a floating ip
+
+parameters: #in this section, the parameters are defined
+  availability_zone:
+    type: string
+    description: The Availability Zone to launch the instance.
+    default: nova:cnode3
+  flavor:
+    type: string
+    label: flavor
+    description: flavor to be used
+    default: PXaaS
+  image:
+    type: string
+    label: Image name or ID
+    description: Image to be used for compute instance
+    default: PXaaS_2
+  public_net:
+    type: string
+    description: Id of the public network for the compute server
+    default: 121ad8e8-a656-4baf-a306-9b88db8de2a8
+  data_net:
+    type: string
+    description: Id of the data network (existing network)
+    default: 4005ad22-64d4-4729-932b-00c829aab209 
+  data_subnet:
+    type: string
+    description: Id of the data subnet (existing subnet)
+    default: 3e9dae69-311b-4044-b02f-3206a0d61ae1
+  mngt_net:
+    type: string
+    description: Id of the mngt network (existing network)
+    default: 39158b11-8413-41fd-a6c8-ef2540ee6ff2
+
+resources: #in this section, the resources are defined
+
+  port1:
+    type: OS::Neutron::Port
+    properties:
+      network_id: { get_param: data_net }
+      fixed_ips:
+       - subnet_id: { get_param: data_subnet }
+
+  floating_ip1:
+    type: OS::Neutron::FloatingIP
+    properties:
+      floating_network_id: { get_param: public_net }
+      port_id: { get_resource: port1 }
+
+  instance1:
+    type: OS::Nova::Server
+    properties:
+      image: { get_param: image } #getting the image defined by user through parameters or the default if not 
+      name: PXaaS-test
+      availability_zone: { get_param: availability_zone }
+      flavor: { get_param: flavor } #getting the flavor
+      networks: #defining the networks attached to 
+        - network: { get_param: mngt_net }
+        - port: { get_resource: port1 }
