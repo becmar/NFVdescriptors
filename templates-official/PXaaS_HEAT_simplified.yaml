@@ -57,5 +57,5 @@ resources: #in this section, the resources are defined
       availability_zone: { get_param: availability_zone }
       flavor: { get_param: flavor } #getting the flavor
       networks: #defining the networks attached to 
-        - network: { get_param: mngt_net }
         - port: { get_resource: port1 }
+        - network: { get_param: mngt_net }
