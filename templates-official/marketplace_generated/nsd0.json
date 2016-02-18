@@ -1,30 +1,55 @@
+
 {
   "nsd": {
-    "id": "56aaf637e4b010752d07748c",
-    "name": "Managed Firewall",
+    "id": "56c5797ce4b04d81afc16420",
+    "name": "TEST NSD",
     "vendor": "3",
     "version": "1",
     "vnfds": [
-      "32"
+      "103"
     ],
     "vnffgd": {
-      "vnffgs": []
+      "vnffgs": [
+        {
+          "vnffg_id": "vnffg0",
+          "number_of_endpoints": 2,
+          "number_of_virtual_links": 2,
+          "dependent_virtual_links": [
+            "vld1",
+            "vld2"
+          ],
+          "network_forwarding_path": [
+            {
+              "nfp_id": "nfp0",
+              "graph": [
+                "vld1",
+                "vld2"
+              ],
+              "connection_points": [
+                "ns_ext_ingress",
+                "VNF#103:ext_data_in",
+                "ns_ext_egress",
+                "VNF#103:ext_data_out"
+              ],
+              "constituent_vnfs": [
+                {
+                  "vnf_ref_id": 103,
+                  "vnf_flavor_key_ref": "gold"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     "lifecycle_events": {
       "start": [
         {
-          "vnf_id": "32",
-          "vnf_event": "stop",
+          "vnf_id": "103",
+          "vnf_event": "start",
           "event_rel_id": "rel_le0",
           "event_id": "le0",
-          "flavor_ref_id": "flavor0"
-        },
-        {
-          "vnf_id": "32",
-          "vnf_event": "stop",
-          "event_rel_id": "rel_le0",
-          "event_id": "le1",
-          "flavor_ref_id": "flavor1"
+          "sla_ref_id": "sla0"
         }
       ],
       "stop": [],
@@ -45,12 +70,10 @@
     ],
     "vld": {
       "number_of_endpoints": 0,
-      "vitual_links": [],
       "virtual_links": [
         {
           "vld_id": "vld0",
-          "alias": "managment",
-          "flavor_ref_id": "flavor0",
+          "alias": "management",
           "root_requirements": "Unlimeted",
           "leaf_requirement": "Unlimeted",
           "qos": {
@@ -59,16 +82,16 @@
             "burst": ""
           },
           "connections": [
-            "VNF#32:ext_management"
+            "VNF#103:ext_management"
           ],
           "connectivity_type": "E-LAN",
-          "external_access": true,
-          "merge": true
+          "external_access": false,
+          "merge": true,
+          "sla_ref_id": "sla0"
         },
         {
           "vld_id": "vld1",
-          "alias": "data",
-          "flavor_ref_id": "flavor0",
+          "alias": "ingress",
           "root_requirements": "Unlimeted",
           "leaf_requirement": "Unlimeted",
           "qos": {
@@ -77,17 +100,16 @@
             "burst": ""
           },
           "connections": [
-            "VNF#32:ext_data_in",
-            "VNF#32:ext_data_out"
+            "VNF#103:ext_data_in"
           ],
           "connectivity_type": "E-LINE",
           "external_access": true,
-          "merge": false
+          "merge": false,
+          "sla_ref_id": "sla0"
         },
         {
           "vld_id": "vld2",
-          "alias": "management",
-          "flavor_ref_id": "flavor1",
+          "alias": "egress",
           "root_requirements": "Unlimeted",
           "leaf_requirement": "Unlimeted",
           "qos": {
@@ -96,40 +118,21 @@
             "burst": ""
           },
           "connections": [
-            "VNF#32:ext_management"
-          ],
-          "connectivity_type": "E-LAN",
-          "external_access": true,
-          "merge": true
-        },
-        {
-          "vld_id": "vld3",
-          "alias": "data",
-          "flavor_ref_id": "flavor1",
-          "root_requirements": "Unlimeted",
-          "leaf_requirement": "Unlimeted",
-          "qos": {
-            "average": "",
-            "peak": "",
-            "burst": ""
-          },
-          "connections": [
-            "VNF#32:ext_data_in",
-            "VNF#32:ext_data_out"
+            "VNF#103:ext_data_out"
           ],
           "connectivity_type": "E-LINE",
           "external_access": true,
-          "merge": false
+          "merge": false,
+          "sla_ref_id": "sla0"
         }
       ]
     },
     "sla": [
       {
-        "id": "flavor0",
-        "flavor_key": "Basic",
+        "id": "sla0",
         "assurance_parameters": [
           {
-            "formula": "MIN(VNF:32.availability)",
+            "formula": "MIN(VNF:103.availability)",
             "id": "availability",
             "name": "availability",
             "penalty": {
@@ -139,48 +142,7 @@
               "value": 10
             },
             "unit": "%",
-            "value": "LT(99)",
-            "violations": [
-              {
-                "breaches_count": 2,
-                "interval": 360
-              }
-            ]
-          }
-        ],
-        "billing": {
-          "model": "PAYG",
-          "price": {
-            "price_per_period": 30,
-            "setup": 20,
-            "unit": "EUR"
-          }
-        },
-        "constituent_vnf": [
-          {
-            "number_of_instances": 1,
-            "redundancy_model": "Active",
-            "vnf_flavour_id_reference": "gold",
-            "vnf_reference": 32
-          }
-        ]
-      },
-      {
-        "id": "flavor1",
-        "flavor_key": "Diamond",
-        "assurance_parameters": [
-          {
-            "formula": "MIN(VNF:32.availability)",
-            "id": "availability",
-            "name": "availability",
-            "penalty": {
-              "type": "Discount",
-              "unit": "%",
-              "validity": "P2D",
-              "value": 10
-            },
-            "unit": "%",
-            "value": "LT(98)",
+            "value": "LT(10)",
             "violations": [
               {
                 "breaches_count": 2,
@@ -201,10 +163,11 @@
           {
             "number_of_instances": 1,
             "redundancy_model": "Active",
-            "vnf_flavour_id_reference": "silver",
-            "vnf_reference": 32
+            "vnf_flavour_id_reference": "gold",
+            "vnf_reference": "103"
           }
-        ]
+        ],
+        "sla_key": "Basic"
       }
     ],
     "auto_scale_policy": {
@@ -213,7 +176,7 @@
     "connection_points": [],
     "vnf_dependency": [],
     "provider": "T-Nova",
-    "description": "Managed Firewall Description",
+    "description": "TEST NSD decription",
     "provider_id": "3",
     "descriptor_version": "1"
   }
