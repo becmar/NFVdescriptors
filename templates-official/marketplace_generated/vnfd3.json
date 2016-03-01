@@ -1,484 +1,526 @@
 {
-   "release":"T-NOVA",
-   "name":"TEST VNF",
-   "description":"sdadssadadsadsasd",
-   "descriptor_version":"1",
-   "version":"1",
-   "type":"vPXAAS",
-   "trade":true,
-   "billing_model":{
-      "model":"PAYG",
-      "period":{
-         "value":10,
-         "period":"D"
+  "provider_id": 4,
+  "vdu": [
+    {
+      "resource_requirements": {
+        "network_interface_bandwidth_unit": "",
+        "hypervisor_parameters": {
+          "version": "10002|12001|2.6.32-358.el6.x86_64",
+          "type": "QEMU-KVM"
+        },
+        "memory_unit": "GB",
+        "network_interface_card_capabilities": {
+          "SR-IOV": true,
+          "mirroring": false
+        },
+        "storage": {
+          "size_unit": "GB",
+          "persistence": false,
+          "size": 8
+        },
+        "network_interface_bandwidth": "",
+        "platform_pcie_parameters": {
+          "SR-IOV": true,
+          "device_pass_through": true
+        },
+        "vcpus": 4,
+        "vswitch_capabilities": {
+          "version": "2.0",
+          "type": "ovs",
+          "overlay_tunnel": "GRE"
+        },
+        "data_processing_acceleration_library": "",
+        "memory": 2,
+        "memory_parameters": {
+          "large_pages_required": false,
+          "numa_allocation_policy": ""
+        },
+        "cpu_support_accelerator": "AES-NI"
       },
-      "price":{
-         "unit":"EUR",
-         "min_per_period":20,
-         "max_per_period":30,
-         "setup":10
+      "bootstrap_script": "#!/bin/bash\nSTR=\"Hello World!\"\necho $STR",
+      "vm_image": "http://10.10.1.167:8080/NFS/files/PXaaS-180216.qcow2",
+      "vm_image_format": "qcow2",
+      "networking_resources": "",
+      "monitoring_parameters_specific": [
+        {
+          "metric": "httpnum",
+          "unit": "INT",
+          "desc": "Number of HTTP requests received by Squid"
+        },
+        {
+          "metric": "hits",
+          "unit": "%",
+          "desc": "Cache hits percentage of all requests for the last 5 minutes"
+        },
+        {
+          "metric": "hits_bytes",
+          "unit": "%",
+          "desc": "Cache hits percentage of bytes sent for the last 5 minutes"
+        },
+        {
+          "metric": "memoryhits",
+          "unit": "%",
+          "desc": "Memory hits percentage for the last 5 minutes (hits that are logged as TCP_MEM_HIT)"
+        },
+        {
+          "metric": "diskhits",
+          "unit": "%",
+          "desc": "Disk hits percentage for the last 5 minutes (hits that are logged as TCP_HIT)"
+        },
+        {
+          "metric": "cachediskutilization",
+          "unit": "%",
+          "desc": "Cache disk utilization"
+        },
+        {
+          "metric": "cachememkutilization",
+          "unit": "%",
+          "desc": "Cache memory utilization"
+        },
+        {
+          "metric": "usernum",
+          "unit": "INT",
+          "desc": "Number of users accessing the proxy"
+        },
+        {
+          "metric": "cpuusage",
+          "unit": "%",
+          "desc": "CPU consumed by Squid for the last 5 minutes"
+        }
+      ],
+      "id": "vdu0",
+      "alias": "proxy",
+      "controller": true,
+      "connection_points": [
+        {
+          "vlink_ref": "vl0",
+          "id": "CP2ccu"
+        },
+        {
+          "vlink_ref": "vl1",
+          "id": "CP9poa"
+        },
+        {
+          "vlink_ref": "vl2",
+          "id": "CPd8yp"
+        },
+        {
+          "vlink_ref": "vl3",
+          "id": "CPkw3s"
+        }
+      ],
+      "monitoring_parameters": [
+        {
+          "metric": "cpuidle",
+          "unit": "%",
+          "desc": "CPU Idle"
+        },
+        {
+          "metric": "cpu_util",
+          "unit": "%",
+          "desc": "CPU Utilization"
+        },
+        {
+          "metric": "fsfree",
+          "unit": "GB",
+          "desc": "Free Storage"
+        },
+        {
+          "metric": "memfree",
+          "unit": "MB",
+          "desc": "Free Memory"
+        },
+        {
+          "metric": "network_incoming",
+          "unit": "Mbps",
+          "desc": "Network Incoming"
+        },
+        {
+          "metric": "network_outgoing",
+          "unit": "Mbps",
+          "desc": "Network Outgoing"
+        },
+        {
+          "metric": "load_shortterm",
+          "unit": "%",
+          "desc": "Load Average (1 Minute)"
+        },
+        {
+          "metric": "load_midterm",
+          "unit": "%",
+          "desc": "Load Average (5 Minutes)"
+        },
+        {
+          "metric": "load_longterm",
+          "unit": "%",
+          "desc": "Load Average (15 Minutes)"
+        },
+        {
+          "metric": "processes_blocked",
+          "unit": "INT",
+          "desc": "Blocked Processes"
+        },
+        {
+          "metric": "processes_paging",
+          "unit": "INT",
+          "desc": "Paging Processes"
+        },
+        {
+          "metric": "processes_running",
+          "unit": "INT",
+          "desc": "Running Processes"
+        },
+        {
+          "metric": "processes_sleeping",
+          "unit": "INT",
+          "desc": "Sleeping Processes"
+        },
+        {
+          "metric": "processes_stopped",
+          "unit": "INT",
+          "desc": "Stopped Processes"
+        },
+        {
+          "metric": "processes_zombie",
+          "unit": "INT",
+          "desc": "Zombie Processes"
+        }
+      ],
+      "vm_image_md5": "90f23ff2b1146e0a6a088ac1a96b7975",
+      "scale_in_out": {
+        "minimum": 1,
+        "maximum": 1
       }
-   },
-   "deployment_flavours":[
-      {
-         "id":"flavor0",
-         "flavour_key":"gold",
-         "constraint":"",
-         "vdu_reference":[
-            "vdu0",
-            "vdu1"
-         ],
-         "vlink_reference":[
-            "vl0",
-            "vl1",
-            "vl2",
-            "vl3"
-         ],
-         "assurance_parameters":[
-            {
-               "id":"cpuidle",
-               "rel_id":"param0",
-               "value":6,
-               "unit":"%",
-               "formula":"cpuidle EQ 6",
-               "violation":[
-                  {
-                     "breaches_count":2,
-                     "interval":360
-                  }
-               ],
-               "penalty":{
-                  "expression":10,
-                  "type":"Discount",
-                  "unit":"%",
-                  "validity":"20PD"
-               }
-            }
-         ]
-      }
-   ],
-   "vdu":[
-      {
-         "resource_requirements":{
-            "vcpus":1,
-            "cpu_support_accelerator":"AES-NI",
-            "memory":2,
-            "memory_unit":"GB",
-            "memory_parameters":{
-               "large_pages_required":false,
-               "numa_allocation_policy":""
-            },
-            "storage":{
-               "size":8,
-               "size_unit":"GB",
-               "persistence":false
-            },
-            "hypervisor_parameters":{
-               "type":"QEMU-KVM",
-               "version":"10002|12001|2.6.32-358.el6.x86_64"
-            },
-            "platform_pcie_parameters":{
-               "device_pass_through":true,
-               "SR-IOV":true
-            },
-            "network_interface_card_capabilities":{
-               "mirroring":false,
-               "SR-IOV":true
-            },
-            "network_interface_bandwidth":"",
-            "network_interface_bandwidth_unit":"",
-            "data_processing_acceleration_library":"",
-            "vswitch_capabilities":{
-               "type":"ovs",
-               "version":"2.0",
-               "overlay_tunnel":"GRE"
-            }
-         },
-         "monitoring_parameters":[
-            {
-               "metric":"cpuidle",
-               "desc":"CPU Idle",
-               "unit":"%"
-            },
-            {
-               "metric":"cpu_util",
-               "desc":"CPU Utilization",
-               "unit":"%"
-            },
-            {
-               "metric":"fsfree",
-               "desc":"Free Storage",
-               "unit":"GB"
-            },
-            {
-               "metric":"memfree",
-               "desc":"Free Memory",
-               "unit":"MB"
-            },
-            {
-               "metric":"network_incoming",
-               "desc":"Network Incoming",
-               "unit":"Mbps"
-            },
-            {
-               "metric":"network_outgoing",
-               "desc":"Network Outgoing",
-               "unit":"Mbps"
-            },
-            {
-               "metric":"load_shortterm",
-               "desc":"Load Average (1 Minute)",
-               "unit":"%"
-            },
-            {
-               "metric":"load_midterm",
-               "desc":"Load Average (5 Minutes)",
-               "unit":"%"
-            },
-            {
-               "metric":"load_longterm",
-               "desc":"Load Average (15 Minutes)",
-               "unit":"%"
-            },
-            {
-               "metric":"processes_blocked",
-               "desc":"Blocked Processes",
-               "unit":"INT"
-            },
-            {
-               "metric":"processes_paging",
-               "desc":"Paging Processes",
-               "unit":"INT"
-            },
-            {
-               "metric":"processes_running",
-               "desc":"Running Processes",
-               "unit":"INT"
-            },
-            {
-               "metric":"processes_zombie",
-               "desc":"Zombie Processes",
-               "unit":"INT"
-            }
-         ],
-         "monitoring_parameters_specific":[
-            {
-               "metric":"httpnum",
-               "desc":"Number of HTTP requests received by Squid",
-               "unit":"INT"
-            },
-            {
-               "metric":"hits",
-               "desc":"Cache hits percentage of all requests for the last 5 minutes",
-               "unit":"%"
-            },
-            {
-               "metric":"hits_bytes",
-               "desc":"Cache hits percentage of bytes sent for the last 5 minutes",
-               "unit":"%"
-            },
-            {
-               "metric":"memoryhits",
-               "desc":"Memory hits percentage for the last 5 minutes (hits that are logged as TCP_MEM_HIT)",
-               "unit":"%"
-            },
-            {
-               "metric":"diskhits",
-               "desc":"Disk hits percentage for the last 5 minutes (hits that are logged as TCP_HIT)",
-               "unit":"%"
-            },
-            {
-               "metric":"cachediskutilization",
-               "desc":"Cache disk utilization",
-               "unit":"%"
-            },
-            {
-               "metric":"cachememkutilization",
-               "desc":"Cache memory utilization",
-               "unit":"%"
-            },
-            {
-               "metric":"usernum",
-               "desc":"Number of users accessing the proxy",
-               "unit":"INT"
-            }
-         ],
-         "networking_resources":"",
-         "scale_in_out":{
-            "minimum":1,
-            "maximum":1
-         },
-         "controller":true,
-         "alias":"proxy",
-         "vm_image":"PXaaS-180216.qcow2",
-         "id":"vdu0",
-         "connection_points":[
-            {
-               "id":"CP7ts1",
-               "vlink_ref":"vl0"
-            },
-            {
-               "id":"CPp1f8",
-               "vlink_ref":"vl1"
-            },
-            {
-               "id":"CPzt8u",
-               "vlink_ref":"vl3"
-            }
-         ]
+    },
+    {
+      "resource_requirements": {
+        "network_interface_bandwidth_unit": "",
+        "hypervisor_parameters": {
+          "version": "10002|12001|2.6.32-358.el6.x86_64",
+          "type": "QEMU-KVM"
+        },
+        "memory_unit": "GB",
+        "network_interface_card_capabilities": {
+          "SR-IOV": true,
+          "mirroring": false
+        },
+        "storage": {
+          "size_unit": "GB",
+          "persistence": true,
+          "size": 500
+        },
+        "network_interface_bandwidth": "",
+        "platform_pcie_parameters": {
+          "SR-IOV": true,
+          "device_pass_through": true
+        },
+        "vcpus": 1,
+        "vswitch_capabilities": {
+          "version": "2.0",
+          "type": "ovs",
+          "overlay_tunnel": "GRE"
+        },
+        "data_processing_acceleration_library": "",
+        "memory": 2,
+        "memory_parameters": {
+          "large_pages_required": false,
+          "numa_allocation_policy": ""
+        },
+        "cpu_support_accelerator": "AES-NI"
       },
-      {
-         "resource_requirements":{
-            "vcpus":2,
-            "cpu_support_accelerator":"AES-NI",
-            "memory":2,
-            "memory_unit":"GB",
-            "memory_parameters":{
-               "large_pages_required":false,
-               "numa_allocation_policy":""
-            },
-            "storage":{
-               "size":8,
-               "size_unit":"GB",
-               "persistence":false
-            },
-            "hypervisor_parameters":{
-               "type":"QEMU-KVM",
-               "version":"10002|12001|2.6.32-358.el6.x86_64"
-            },
-            "platform_pcie_parameters":{
-               "device_pass_through":true,
-               "SR-IOV":true
-            },
-            "network_interface_card_capabilities":{
-               "mirroring":false,
-               "SR-IOV":true
-            },
-            "network_interface_bandwidth":"",
-            "network_interface_bandwidth_unit":"",
-            "data_processing_acceleration_library":"",
-            "vswitch_capabilities":{
-               "type":"ovs",
-               "version":"2.0",
-               "overlay_tunnel":"GRE"
-            }
-         },
-         "monitoring_parameters":[
-            {
-               "metric":"cpuidle",
-               "desc":"CPU Idle",
-               "unit":"%"
-            },
-            {
-               "metric":"cpu_util",
-               "desc":"CPU Utilization",
-               "unit":"%"
-            },
-            {
-               "metric":"fsfree",
-               "desc":"Free Storage",
-               "unit":"GB"
-            },
-            {
-               "metric":"memfree",
-               "desc":"Free Memory",
-               "unit":"MB"
-            },
-            {
-               "metric":"network_incoming",
-               "desc":"Network Incoming",
-               "unit":"Mbps"
-            },
-            {
-               "metric":"network_outgoing",
-               "desc":"Network Outgoing",
-               "unit":"Mbps"
-            },
-            {
-               "metric":"load_shortterm",
-               "desc":"Load Average (1 Minute)",
-               "unit":"%"
-            },
-            {
-               "metric":"load_midterm",
-               "desc":"Load Average (5 Minutes)",
-               "unit":"%"
-            },
-            {
-               "metric":"load_longterm",
-               "desc":"Load Average (15 Minutes)",
-               "unit":"%"
-            },
-            {
-               "metric":"processes_blocked",
-               "desc":"Blocked Processes",
-               "unit":"INT"
-            },
-            {
-               "metric":"processes_paging",
-               "desc":"Paging Processes",
-               "unit":"INT"
-            },
-            {
-               "metric":"processes_running",
-               "desc":"Running Processes",
-               "unit":"INT"
-            },
-            {
-               "metric":"processes_sleeping",
-               "desc":"Sleeping Processes",
-               "unit":"INT"
-            }
-         ],
-         "monitoring_parameters_specific":[
-            {
-               "metric":"httpnum",
-               "desc":"Number of HTTP requests received by Squid",
-               "unit":"INT"
-            },
-            {
-               "metric":"hits",
-               "desc":"Cache hits percentage of all requests for the last 5 minutes",
-               "unit":"%"
-            },
-            {
-               "metric":"hits_bytes",
-               "desc":"Cache hits percentage of bytes sent for the last 5 minutes",
-               "unit":"%"
-            },
-            {
-               "metric":"memoryhits",
-               "desc":"Memory hits percentage for the last 5 minutes (hits that are logged as TCP_MEM_HIT)",
-               "unit":"%"
-            },
-            {
-               "metric":"diskhits",
-               "desc":"Disk hits percentage for the last 5 minutes (hits that are logged as TCP_HIT)",
-               "unit":"%"
-            },
-            {
-               "metric":"cachediskutilization",
-               "desc":"Cache disk utilization",
-               "unit":"%"
-            },
-            {
-               "metric":"cachememkutilization",
-               "desc":"Cache memory utilization",
-               "unit":"%"
-            }
-         ],
-         "networking_resources":"",
-         "scale_in_out":{
-            "minimum":1,
-            "maximum":1
-         },
-         "controller":false,
-         "vm_image":"cirros-0.3.4-x86_64-disk.img",
-         "alias":"database",
-         "id":"vdu1",
-         "connection_points":[
-            {
-               "id":"CPdfmo",
-               "vlink_ref":"vl0"
-            },
-            {
-               "id":"CPb4sz",
-               "vlink_ref":"vl2"
-            },
-            {
-               "id":"CPhau5",
-               "vlink_ref":"vl3"
-            }
-         ]
+      "bootstrap_script": "#!/bin/bash\nSTR=\"Hello World!\"\necho $STR",
+      "vm_image": "http://10.10.1.167:8080/NFS/files/cirros-0.3.4-x86_64-disk.img",
+      "networking_resources": "",
+      "monitoring_parameters_specific": [
+        {
+          "metric": "httpnum",
+          "unit": "INT",
+          "desc": "Number of HTTP requests received by Squid"
+        },
+        {
+          "metric": "hits",
+          "unit": "%",
+          "desc": "Cache hits percentage of all requests for the last 5 minutes"
+        },
+        {
+          "metric": "hits_bytes",
+          "unit": "%",
+          "desc": "Cache hits percentage of bytes sent for the last 5 minutes"
+        },
+        {
+          "metric": "memoryhits",
+          "unit": "%",
+          "desc": "Memory hits percentage for the last 5 minutes (hits that are logged as TCP_MEM_HIT)"
+        },
+        {
+          "metric": "diskhits",
+          "unit": "%",
+          "desc": "Disk hits percentage for the last 5 minutes (hits that are logged as TCP_HIT)"
+        },
+        {
+          "metric": "cachediskutilization",
+          "unit": "%",
+          "desc": "Cache disk utilization"
+        },
+        {
+          "metric": "cachememkutilization",
+          "unit": "%",
+          "desc": "Cache memory utilization"
+        },
+        {
+          "metric": "usernum",
+          "unit": "INT",
+          "desc": "Number of users accessing the proxy"
+        },
+        {
+          "metric": "cpuusage",
+          "unit": "%",
+          "desc": "CPU consumed by Squid for the last 5 minutes"
+        }
+      ],
+      "id": "vdu1",
+      "alias": "mysql",
+      "controller": false,
+      "connection_points": [
+        {
+          "vlink_ref": "vl0",
+          "id": "CPvgsb"
+        },
+        {
+          "vlink_ref": "vl3",
+          "id": "CPg5t3"
+        }
+      ],
+      "monitoring_parameters": [
+        {
+          "metric": "cpuidle",
+          "unit": "%",
+          "desc": "CPU Idle"
+        },
+        {
+          "metric": "cpu_util",
+          "unit": "%",
+          "desc": "CPU Utilization"
+        },
+        {
+          "metric": "fsfree",
+          "unit": "GB",
+          "desc": "Free Storage"
+        },
+        {
+          "metric": "memfree",
+          "unit": "MB",
+          "desc": "Free Memory"
+        },
+        {
+          "metric": "network_incoming",
+          "unit": "Mbps",
+          "desc": "Network Incoming"
+        },
+        {
+          "metric": "network_outgoing",
+          "unit": "Mbps",
+          "desc": "Network Outgoing"
+        },
+        {
+          "metric": "load_shortterm",
+          "unit": "%",
+          "desc": "Load Average (1 Minute)"
+        },
+        {
+          "metric": "load_midterm",
+          "unit": "%",
+          "desc": "Load Average (5 Minutes)"
+        },
+        {
+          "metric": "load_longterm",
+          "unit": "%",
+          "desc": "Load Average (15 Minutes)"
+        },
+        {
+          "metric": "processes_blocked",
+          "unit": "INT",
+          "desc": "Blocked Processes"
+        },
+        {
+          "metric": "processes_paging",
+          "unit": "INT",
+          "desc": "Paging Processes"
+        },
+        {
+          "metric": "processes_running",
+          "unit": "INT",
+          "desc": "Running Processes"
+        },
+        {
+          "metric": "processes_sleeping",
+          "unit": "INT",
+          "desc": "Sleeping Processes"
+        },
+        {
+          "metric": "processes_stopped",
+          "unit": "INT",
+          "desc": "Stopped Processes"
+        },
+        {
+          "metric": "processes_zombie",
+          "unit": "INT",
+          "desc": "Zombie Processes"
+        }
+      ],
+      "scale_in_out": {
+        "minimum": 1,
+        "maximum": 1
       }
-   ],
-   "vnf_lifecycle_events":[
-      {
-         "vnf_container":"/etc/test",
-         "driver":"ssh",
-         "authentication":"dsafdfsdasdfasfda",
-         "authentication_username":"sasadsa",
-         "events":{
-            "start":{
-               "command":"dasdasd"
+    }
+  ],
+  "name": "TEST VNF",
+  "created_at": "2016-03-01T13:42:43Z",
+  "modified_at": "2016-03-01T13:42:43Z",
+  "vlinks": [
+    {
+      "leaf_requirement": "Unlimeted",
+      "connectivity_type": "E-LAN",
+      "vdu_reference": [
+        "vdu0",
+        "vdu1"
+      ],
+      "external_access": true,
+      "connection_points_reference": [
+        "CP2ccu",
+        "CPvgsb"
+      ],
+      "access": true,
+      "alias": "management",
+      "root_requirement": "Unlimeted",
+      "dhcp": true,
+      "id": "vl0",
+      "qos": ""
+    },
+    {
+      "leaf_requirement": "Unlimeted",
+      "connectivity_type": "E-LINE",
+      "vdu_reference": [
+        "vdu0"
+      ],
+      "external_access": true,
+      "connection_points_reference": [
+        "CP9poa"
+      ],
+      "access": false,
+      "alias": "data_in",
+      "root_requirement": "Unlimeted",
+      "dhcp": false,
+      "id": "vl1",
+      "qos": ""
+    },
+    {
+      "leaf_requirement": "Unlimeted",
+      "connectivity_type": "E-LINE",
+      "vdu_reference": [
+        "vdu0"
+      ],
+      "external_access": true,
+      "connection_points_reference": [
+        "CPd8yp"
+      ],
+      "access": false,
+      "alias": "data_out",
+      "root_requirement": "Unlimeted",
+      "dhcp": false,
+      "id": "vl2",
+      "qos": ""
+    },
+    {
+      "leaf_requirement": "Unlimeted",
+      "connectivity_type": "E-LINE",
+      "vdu_reference": [
+        "vdu0",
+        "vdu1"
+      ],
+      "external_access": false,
+      "connection_points_reference": [
+        "CPkw3s",
+        "CPg5t3"
+      ],
+      "access": false,
+      "alias": "internal",
+      "root_requirement": "Unlimeted",
+      "dhcp": false,
+      "id": "vl3",
+      "qos": ""
+    }
+  ],
+  "trade": true,
+  "descriptor_version": "1",
+  "deployment_flavours": [
+    {
+      "vdu_reference": [
+        "vdu0",
+        "vdu1"
+      ],
+      "constraint": "",
+      "flavour_key": "gold",
+      "vlink_reference": [
+        "vl0",
+        "vl1",
+        "vl2",
+        "vl3"
+      ],
+      "id": "flavor0",
+      "assurance_parameters": [
+        {
+          "violation": [
+            {
+              "interval": 360,
+              "breaches_count": 2
             }
-         },
-         "authentication_type":"PubKeyAuthentication",
-         "flavor_id_ref":"flavor0"
-      }
-   ],
-   "vlinks":[
-      {
-         "id":"vl0",
-         "alias":"management",
-         "connectivity_type":"E-LINE",
-         "connection_points_reference":[
-            "CP7ts1",
-            "CPdfmo"
-         ],
-         "vdu_reference":[
-            "vdu0",
-            "vdu1"
-         ],
-         "root_requirement":"Unlimeted",
-         "leaf_requirement":"Unlimeted",
-         "qos":"",
-         "access":true,
-         "dhcp":true,
-         "external_access":true
+          ],
+          "value": 99,
+          "penalty": {
+            "type": "Discount",
+            "expression": 10,
+            "validity": "P2D",
+            "unit": "%"
+          },
+          "formula": "cpu_util GT 99",
+          "rel_id": "param0",
+          "id": "cpu_util",
+          "unit": "%"
+        }
+      ]
+    }
+  ],
+  "version": "1",
+  "vnf_lifecycle_events": [
+    {
+      "authentication_username": "root",
+      "driver": "ssh",
+      "authentication_type": "PubKeyAuthentication",
+      "authentication": "<<<SSH KEY>>>",
+      "flavor_id_ref": "flavor0",
+      "events": {
+        "start": {
+          "command": "service proxy start",
+          "template_file": "{}"
+        }
       },
-      {
-         "id":"vl1",
-         "alias":"data_in",
-         "connectivity_type":"E-LINE",
-         "connection_points_reference":[
-            "CPp1f8"
-         ],
-         "vdu_reference":[
-            "vdu0"
-         ],
-         "root_requirement":"Unlimeted",
-         "leaf_requirement":"Unlimeted",
-         "qos":"",
-         "access":false,
-         "dhcp":false,
-         "external_access":true
-      },
-      {
-         "id":"vl2",
-         "alias":"data_out",
-         "connectivity_type":"E-LINE",
-         "connection_points_reference":[
-            "CPb4sz"
-         ],
-         "vdu_reference":[
-            "vdu1"
-         ],
-         "root_requirement":"Unlimeted",
-         "leaf_requirement":"Unlimeted",
-         "qos":"",
-         "access":false,
-         "dhcp":false,
-         "external_access":true
-      },
-      {
-         "id":"vl3",
-         "alias":"internal",
-         "connectivity_type":"E-LINE",
-         "connection_points_reference":[
-            "CPzt8u",
-            "CPhau5"
-         ],
-         "vdu_reference":[
-            "vdu0",
-            "vdu1"
-         ],
-         "root_requirement":"Unlimeted",
-         "leaf_requirement":"Unlimeted",
-         "qos":"",
-         "access":false,
-         "dhcp":false,
-         "external_access":false
-      }
-   ]
+      "vnf_container": "/etc/opt/"
+    }
+  ],
+  "billing_model": {
+    "price": {
+      "min_per_period": 20,
+      "max_per_period": 30,
+      "setup": 20,
+      "unit": "EUR"
+    },
+    "model": "PAYG",
+    "period": "P30D"
+  },
+  "provider": "TEIC",
+  "release": "T-NOVA",
+  "type": "vPXAAS",
+  "id": 601,
+  "description": "TEST VNF Desc"
 }
