@@ -76,6 +76,26 @@
   "vTU": [
   ],
   "vHG": [
+    {
+      "metric": "object",
+      "desc": "Number of objects in the repository",
+      "unit": "INT"
+    },
+    {
+      "metric": "size",
+      "desc": "Size of the object repository",
+      "unit": "INT"
+    },
+    {
+      "metric": "rpm",
+      "desc": "Requests per minute in the VHG",
+      "unit": "INT"
+    },
+    {
+      "metric": "hpm",
+      "desc": "Hits per minute in the VHG",
+      "unit": "INT"
+    },
   ],
   "vSA": [
   ],
