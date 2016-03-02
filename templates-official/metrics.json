@@ -1,5 +1,35 @@
 {
   "vTC": [
+    {
+      "metric": "total_packets",
+      "desc": "Incoming and outgoing packets per second",
+      "unit": "INT"
+    },
+    {
+      "metric": "link_errors",
+      "desc": "Errors in the link",
+      "unit": "INT"
+    },
+    {
+      "metric": "dropped_packets",
+      "desc": "Errors in the link",
+      "unit": "INT"
+    },
+    {
+      "metric": "flows_active",
+      "desc": "Flows Active",
+      "unit": "INT"
+    },
+    {
+      "metric": "memory",
+      "desc": "Memory Utilized",
+      "unit": "INT"
+    },
+    {
+      "metric": "cpu",
+      "desc": "CPU Utilization",
+      "unit": "INT"
+    }
   ],
   "vSBC": [
     {
