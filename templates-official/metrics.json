@@ -104,6 +104,16 @@
     }
   ],
   "vTU": [
+    {
+      "metric": "memory",
+      "desc": "Memory Free",
+      "unit": "%"
+    },
+    {
+      "metric": "cpu",
+      "desc": "Storage Free",
+      "unit": "%"
+    }
   ],
   "vHG": [
     {
