@@ -1,12 +1,11 @@
-
 {
   "nsd": {
-    "id": "56c5797ce4b04d81afc16420",
-    "name": "TEST NSD",
+    "id": "56dff54fe4b0bd73015d49a6",
+    "name": "PXaaS Service 123",
     "vendor": "3",
     "version": "1",
     "vnfds": [
-      "103"
+      "1004"
     ],
     "vnffgd": {
       "vnffgs": [
@@ -27,13 +26,13 @@
               ],
               "connection_points": [
                 "ns_ext_ingress",
-                "VNF#103:ext_data_in",
-                "ns_ext_egress",
-                "VNF#103:ext_data_out"
+                "VNF#1004:ext_data_in",
+                "ns_ext_engress",
+                "VNF#1004:ext_data_out"
               ],
               "constituent_vnfs": [
                 {
-                  "vnf_ref_id": 103,
+                  "vnf_ref_id": "1004",
                   "vnf_flavor_key_ref": "gold"
                 }
               ]
@@ -45,7 +44,7 @@
     "lifecycle_events": {
       "start": [
         {
-          "vnf_id": "103",
+          "vnf_id": "1004",
           "vnf_event": "start",
           "event_rel_id": "rel_le0",
           "event_id": "le0",
@@ -82,7 +81,7 @@
             "burst": ""
           },
           "connections": [
-            "VNF#103:ext_management"
+            "VNF#1004:ext_management"
           ],
           "connectivity_type": "E-LAN",
           "external_access": false,
@@ -100,7 +99,7 @@
             "burst": ""
           },
           "connections": [
-            "VNF#103:ext_data_in"
+            "VNF#1004:ext_data_in"
           ],
           "connectivity_type": "E-LINE",
           "external_access": true,
@@ -109,7 +108,7 @@
         },
         {
           "vld_id": "vld2",
-          "alias": "egress",
+          "alias": "engress",
           "root_requirements": "Unlimeted",
           "leaf_requirement": "Unlimeted",
           "qos": {
@@ -118,7 +117,7 @@
             "burst": ""
           },
           "connections": [
-            "VNF#103:ext_data_out"
+            "VNF#1004:ext_data_out"
           ],
           "connectivity_type": "E-LINE",
           "external_access": true,
@@ -132,17 +131,17 @@
         "id": "sla0",
         "assurance_parameters": [
           {
-            "formula": "MIN(VNF:103.availability)",
-            "id": "availability",
-            "name": "availability",
+            "formula": "MAX(VNF:1004.httpnum)",
+            "id": "httpnum",
+            "name": "httpnum",
             "penalty": {
               "type": "Discount",
-              "unit": "%",
-              "validity": "P2D",
+              "unit": "INT",
+              "validity": "P1D",
               "value": 10
             },
-            "unit": "%",
-            "value": "LT(10)",
+            "unit": "INT",
+            "value": "GT(100)",
             "violations": [
               {
                 "breaches_count": 2,
@@ -154,8 +153,8 @@
         "billing": {
           "model": "PAYG",
           "price": {
-            "price_per_period": 50,
-            "setup": 20,
+            "price_per_period": 30,
+            "setup": 10,
             "unit": "EUR"
           }
         },
@@ -164,7 +163,7 @@
             "number_of_instances": 1,
             "redundancy_model": "Active",
             "vnf_flavour_id_reference": "gold",
-            "vnf_reference": "103"
+            "vnf_reference": "1004"
           }
         ],
         "sla_key": "Basic"
@@ -176,7 +175,7 @@
     "connection_points": [],
     "vnf_dependency": [],
     "provider": "T-Nova",
-    "description": "TEST NSD decription",
+    "description": "PXaaS Service 123 Desc",
     "provider_id": "3",
     "descriptor_version": "1"
   }
