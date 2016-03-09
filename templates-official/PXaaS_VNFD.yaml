@@ -1,0 +1,251 @@
+billing_model:
+  model: PAYG
+  price:
+    max_per_period: 20
+    min_per_period: 10
+    setup: 15
+    unit: EUR
+created_at: '2016-02-29T07:27:09Z'
+deployment_flavours:
+- assurance_parameters:
+  - formula: cpu_util GE 90
+    id: cpu_util
+    penalty:
+      expression: 20
+      type: Discount
+      unit: '%'
+      validity: 1PW
+    rel_id: param0
+    unit: '%'
+    value: 90
+    violation: []
+  constraint: ''
+  flavour_key: bronze
+  id: flavor2
+  vdu_reference:
+  - vdu0
+  vlink_reference:
+  - vl0
+  - vl1
+description: Provides proxy services on demand such as web access control, bandwidth
+  control, url filtering, caching and anonymity
+descriptor_version: '0.1'
+id: 505
+modified_at: '2016-02-29T07:27:09Z'
+name: PXaaS
+provider: Primetel
+provider_id: 10
+release: T-NOVA
+trade: false
+type: vPXAAS
+vdu:
+- alias: pxaas
+  connection_points:
+  - id: CPa1lm
+    vlink_ref: vl0
+  - id: CPmirg
+    vlink_ref: vl1
+  controller: true
+  id: vdu0
+  monitoring_parameters:
+  - desc: CPU Idle
+    metric: cpuidle
+    unit: '%'
+  - desc: CPU Utilization
+    metric: cpu_util
+    unit: '%'
+  - desc: Free Storage
+    metric: fsfree
+    unit: GB
+  - desc: Free Memory
+    metric: memfree
+    unit: MB
+  - desc: Network Incoming
+    metric: network_incoming
+    unit: Mbps
+  - desc: Network Outgoing
+    metric: network_outgoing
+    unit: Mbps
+  - desc: Load Average (1 Minute)
+    metric: load_shortterm
+    unit: '%'
+  - desc: Load Average (5 Minutes)
+    metric: load_midterm
+    unit: '%'
+  - desc: Load Average (15 Minutes)
+    metric: load_longterm
+    unit: '%'
+  - desc: Blocked Processes
+    metric: processes_blocked
+    unit: INT
+  - desc: Paging Processes
+    metric: processes_paging
+    unit: INT
+  - desc: Running Processes
+    metric: processes_running
+    unit: INT
+  - desc: Sleeping Processes
+    metric: processes_sleeping
+    unit: INT
+  - desc: Stopped Processes
+    metric: processes_stopped
+    unit: INT
+  - desc: Zombie Processes
+    metric: processes_zombie
+    unit: INT
+  monitoring_parameters_specific:
+  - desc: Number of HTTP requests received by Squid
+    metric: httpnum
+    unit: INT
+  - desc: Cache hits percentage of all requests for the last 5 minutes
+    metric: hits
+    unit: '%'
+  - desc: Cache hits percentage of bytes sent for the last 5 minutes
+    metric: hits_bytes
+    unit: '%'
+  - desc: Memory hits percentage for the last 5 minutes (hits that are logged as TCP_MEM_HIT)
+    metric: memoryhits
+    unit: '%'
+  - desc: Disk hits percentage for the last 5 minutes (hits that are logged as TCP_HIT)
+    metric: diskhits
+    unit: '%'
+  - desc: Cache disk utilization
+    metric: cachediskutilization
+    unit: '%'
+  - desc: Cache memory utilization
+    metric: cachememkutilization
+    unit: '%'
+  - desc: Number of users accessing the proxy
+    metric: usernum
+    unit: INT
+  - desc: CPU consumed by Squid for the last 5 minutes
+    metric: cpuusage
+    unit: '%'
+  networking_resources: ''
+  resource_requirements:
+    cpu_support_accelerator: AES-NI
+    data_processing_acceleration_library: ''
+    hypervisor_parameters:
+      type: QEMU-KVM
+      version: 10002|12001|2.6.32-358.el6.x86_64
+    memory: 2
+    memory_parameters:
+      large_pages_required: false
+      numa_allocation_policy: ''
+    memory_unit: GB
+    network_interface_bandwidth: ''
+    network_interface_bandwidth_unit: ''
+    network_interface_card_capabilities:
+      SR-IOV: true
+      mirroring: false
+    platform_pcie_parameters:
+      SR-IOV: true
+      device_pass_through: true
+    storage:
+      persistence: false
+      size: 15
+      size_unit: GB
+    vcpus: 2
+    vswitch_capabilities:
+      overlay_tunnel: GRE
+      type: ovs
+      version: '2.0'
+  scale_in_out:
+    maximum: 1
+    minimum: 1
+  vm_image: http://10.10.1.167:8080/NFS/files/PXaaS-180216.qcow2
+  vm_image_format: qcow2
+  vm_image_md5: 90f23ff2b1146e0a6a088ac1a96b7975
+version: '0.1'
+vlinks:
+- access: true
+  alias: data
+  connection_points_reference:
+  - CPa1lm
+  connectivity_type: E-LAN
+  dhcp: true
+  external_access: true
+  id: vl0
+  leaf_requirement: Unlimeted
+  qos: ''
+  root_requirement: Unlimeted
+  vdu_reference:
+  - vdu0
+- access: false
+  alias: management
+  connection_points_reference:
+  - CPmirg
+  connectivity_type: E-LAN
+  dhcp: true
+  external_access: false
+  id: vl1
+  leaf_requirement: Unlimeted
+  qos: ''
+  root_requirement: Unlimeted
+  vdu_reference:
+  - vdu0
+vnf_lifecycle_events:
+- authentication: '-----BEGIN RSA PRIVATE KEY-----
+
+    MIIEpAIBAAKCAQEAqKzv1O+8SG53PJsMWHpAaBbbwQ5bEbHMplnOvnfWiL21cfU+
+
+    EQdY2JgjsLMJyMnS2mMBmopJQ8y2c1KS2yz30oz/2ac/PcbiRmX4PV2qqUgDdVj1
+
+    5w5YQreSBMNfi+hXs2uhs5dsDfG1mbedXhyT9QFlimeiZH+WwmX+91A9GQrCTrQU
+
+    Sp7FQsiXyDBNUYmVsYYdP19XcNNc1OoReY8oCBzrrBR+vOf7XA6dh86HlM/ZBuQf
+
+    SUEn8SdYeQM0975aDIrjhW8m3Fd3ZE3ZZKuCl7rbMLY8RRB8pSAkpFrBtyeqtN0H
+
+    Rj7HpAd+BGjfgrL+ivXmG5AZ3fSehTFSKsGDDQIDAQABAoIBACgFkIpXr7cH7ubE
+
+    azN7HlkUQ2QVQep643H9ER8EVDTxvmGhrO5hbeVGhAFjGck4if0jTLgcY7HgmtHW
+
+    H949VzfwGKzOECVaUUoe273DwcCUw61ORFpkfvClmdHjgYIyyMxbl2yDWzIbzdkB
+
+    RieUZE7X2/3xBQkPdPf/N3X65eRQ1FYRR6wOp2dAONzw0xpq2TYOKdVBqgZS3Sa6
+
+    pksSDycaLlSJA/NN2y/FiIU8kkoUShYflRrsyheipQ9D5KMEmQASxWkDQu3xW+Wl
+
+    60aUwnOrEGoMNAXAHUshfpbrsu3A6d59/6rykhc37z9tVUdTnPbX5KPDkWbKqC7H
+
+    DdMSMsECgYEA34kRR8+nBd+fBNHPGsn++S8eaeczX0kMqRiATWq0ZPspcIbA2ojS
+
+    0X5txoEFBjcZ8C2Nq56MjZtqfZRZCLfm1e/Dk2LP0x8vRS9BQRKwL//hypYqEC5l
+
+    orokfy91Ow0kxnHxiYvJy2riinTcqSc4/8u2PuDVGW6JnLRxCIcW1kUCgYEAwSw0
+
+    9jVjwQCWhkRJr/17vCLuCmkSMzmTFSu9SEsrVAmrYeE2qJPNRySjTfnDa/yA3OxG
+
+    j620F5yMrD0ONCtoSqU6VQt23KiS0DPmWkeCuv6eOYMxXGy721idHshCtY9PlSZg
+
+    C/QKa2KQnKV/88UfHUt/3hcAlpJzSdWBSku4iikCgYEAgv1LRw2EDokQIj7gYg5k
+
+    f5kA9YYqMHgaFyzoYnVY6KPVkL8mW+k5wNGZem04iH/Zj0jib+Mk8gZUzOoVkmpR
+
+    tqQds0yABHONu7kJQBy3ailEIvcEBx9pJ4Z0xKMGy2fUWQWESNnFkpI71m7Mr8Lw
+
+    P9UcIpSVy6Vetpl2c0zWMRECgYAGBlbwhuHBlz8amO6jaoh9aal68aP7rQQFWQPi
+
+    SVXknRiXSOrnfxSb72yYdf2+VHXAbi4VNRm00tEgXhcfUWtDSLv1AxKF90v86mF4
+
+    11ogcuiEaq8TbuC9Cpp750sNVpbo0/WS6d2ZU82m1RKUi8VYqI4oYxdFmvO1jc8m
+
+    fg4XYQKBgQCebRk5OiGmHTKUHHuBnFyA1ZJpVPGzBBmyQo83gRQ9+KvBOHQHYQcC
+
+    v8JYWnuTwKCcIJhcqA8UbIGhRKHtBnqLr3Ipg97gKBElO3bTzUUut0QcMd14i6ab
+
+    9oaS/tg7BhxKkQyuYwIpSeqFeZeecID4dfMCMHgaPaAsz+epjv1NIw==
+
+    -----END RSA PRIVATE KEY-----'
+  authentication_type: PubKeyAuthentication
+  authentication_username: vagrant
+  driver: ssh
+  events:
+    start:
+      command: /home/vagrant/scripts/start
+      template_file: '{ \"controller\":\"get_attr[vdu1,PublicIp]\", \"vdu1\":\"get_attr[vdu1,PublicIp]\"}'
+    stop:
+      command: /home/vagrant/scripts/stop
+  flavor_id_ref: flavor2
+  vnf_container: /home/vagrant/container/
