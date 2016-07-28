@@ -110,9 +110,24 @@
       "unit": "%"
     },
     {
-      "metric": "cpu",
+      "metric": "disk",
       "desc": "Storage Free",
       "unit": "%"
+    },
+    {
+      "metric": "bitrate",
+      "desc": "Transcoder total bitrate",
+      "unit": "kbits/s"
+    },
+    {
+      "metric": "framerate",
+      "desc": "Transcoder total framerate",
+      "unit": "fps"
+    },
+    {
+      "metric": "running",
+      "desc": "Transcoder jobs running",
+      "unit": "INT"
     }
   ],
   "vHG": [
